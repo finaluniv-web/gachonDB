@@ -94,66 +94,24 @@ canvas{display:block;padding:0 12px 12px;}
 </head>
 <body>
 <div id="chartArea"><div class="loading">⏳ 데이터 불러오는 중...</div></div>
-
 <script>
-/* ───────────── CONSTANTS ───────────── */
 const SHEET_ID  = '1-uvH7koGGIEYXO8mL56xVUbUWXEbNPVuVP3htZ2wQMY';
 const SHEET_TAB = '가천대학교체육학전공';
 const LOGO_SRC  = 'images/gachon.png';
 
-/* 배점표 (가천대 공식) */
-const SCORE_TABLE = {
-  남:{
-    strength:[
-      {min:221,score:100},{min:211,score:98},{min:201,score:96},{min:191,score:94},
-      {min:181,score:92},{min:171,score:90},{min:161,score:88},{min:151,score:86},
-      {min:141,score:84},{min:131,score:82},{min:121,score:80},{min:111,score:75},
-      {min:101,score:70},{min:91,score:65},{min:81,score:60},{min:0,score:55}
-    ],
-    medicine:[
-      {min:13.0,score:100},{min:12.5,score:98},{min:12.0,score:96},{min:11.5,score:94},
-      {min:11.0,score:92},{min:10.5,score:90},{min:10.0,score:88},{min:9.5,score:86},
-      {min:9.0,score:84},{min:8.5,score:82},{min:8.0,score:80},{min:7.5,score:75},
-      {min:7.0,score:70},{min:6.5,score:65},{min:6.0,score:60},{min:0,score:55}
-    ],
-    jump:[
-      {min:261,score:100},{min:251,score:98},{min:241,score:96},{min:231,score:94},
-      {min:221,score:92},{min:211,score:90},{min:201,score:88},{min:191,score:86},
-      {min:181,score:84},{min:171,score:82},{min:161,score:80},{min:151,score:75},
-      {min:141,score:70},{min:131,score:65},{min:121,score:60},{min:0,score:55}
-    ],
-    run:[
-      {max:7.80,score:100},{max:8.00,score:98},{max:8.20,score:96},{max:8.40,score:94},
-      {max:8.60,score:92},{max:8.80,score:90},{max:9.00,score:88},{max:9.20,score:86},
-      {max:9.40,score:84},{max:9.60,score:82},{max:9.80,score:80},{max:10.00,score:75},
-      {max:10.20,score:70},{max:10.40,score:65},{max:10.60,score:60},{max:999,score:55}
-    ]
-  },
+/* ── 배점표 ── */
+const SCORE_TABLE={
   여:{
-    strength:[
-      {min:151,score:100},{min:141,score:98},{min:131,score:96},{min:121,score:94},
-      {min:111,score:92},{min:101,score:90},{min:91,score:88},{min:81,score:86},
-      {min:71,score:84},{min:61,score:82},{min:51,score:80},{min:41,score:75},
-      {min:31,score:70},{min:21,score:65},{min:11,score:60},{min:0,score:55}
-    ],
-    medicine:[
-      {min:9.0,score:100},{min:8.5,score:98},{min:8.0,score:96},{min:7.5,score:94},
-      {min:7.0,score:92},{min:6.5,score:90},{min:6.0,score:88},{min:5.5,score:86},
-      {min:5.0,score:84},{min:4.5,score:82},{min:4.0,score:80},{min:3.5,score:75},
-      {min:3.0,score:70},{min:2.5,score:65},{min:2.0,score:60},{min:0,score:55}
-    ],
-    jump:[
-      {min:211,score:100},{min:201,score:98},{min:191,score:96},{min:181,score:94},
-      {min:171,score:92},{min:161,score:90},{min:151,score:88},{min:141,score:86},
-      {min:131,score:84},{min:121,score:82},{min:111,score:80},{min:101,score:75},
-      {min:91,score:70},{min:81,score:65},{min:71,score:60},{min:0,score:55}
-    ],
-    run:[
-      {max:8.60,score:100},{max:8.80,score:98},{max:9.00,score:96},{max:9.20,score:94},
-      {max:9.40,score:92},{max:9.60,score:90},{max:9.80,score:88},{max:10.00,score:86},
-      {max:10.20,score:84},{max:10.40,score:82},{max:10.60,score:80},{max:10.80,score:75},
-      {max:11.00,score:70},{max:11.20,score:65},{max:11.40,score:60},{max:999,score:55}
-    ]
+    strength:[{min:151,score:100},{min:141,score:98},{min:131,score:96},{min:121,score:94},{min:111,score:92},{min:101,score:90},{min:91,score:88},{min:81,score:86},{min:71,score:84},{min:61,score:82},{min:51,score:80},{min:41,score:75},{min:31,score:70},{min:21,score:65},{min:11,score:60},{min:0,score:55}],
+    medicine:[{min:9.0,score:100},{min:8.5,score:98},{min:8.0,score:96},{min:7.5,score:94},{min:7.0,score:92},{min:6.5,score:90},{min:6.0,score:88},{min:5.5,score:86},{min:5.0,score:84},{min:4.5,score:82},{min:4.0,score:80},{min:3.5,score:75},{min:3.0,score:70},{min:2.5,score:65},{min:2.0,score:60},{min:0,score:55}],
+    jump:[{min:211,score:100},{min:201,score:98},{min:191,score:96},{min:181,score:94},{min:171,score:92},{min:161,score:90},{min:151,score:88},{min:141,score:86},{min:131,score:84},{min:121,score:82},{min:111,score:80},{min:101,score:75},{min:91,score:70},{min:81,score:65},{min:71,score:60},{min:0,score:55}],
+    run:[{max:8.60,score:100},{max:8.80,score:98},{max:9.00,score:96},{max:9.20,score:94},{max:9.40,score:92},{max:9.60,score:90},{max:9.80,score:88},{max:10.00,score:86},{max:10.20,score:84},{max:10.40,score:82},{max:10.60,score:80},{max:10.80,score:75},{max:11.00,score:70},{max:11.20,score:65},{max:11.40,score:60},{max:999,score:55}]
+  },
+  남:{
+    strength:[{min:221,score:100},{min:211,score:98},{min:201,score:96},{min:191,score:94},{min:181,score:92},{min:171,score:90},{min:161,score:88},{min:151,score:86},{min:141,score:84},{min:131,score:82},{min:121,score:80},{min:111,score:75},{min:101,score:70},{min:91,score:65},{min:81,score:60},{min:0,score:55}],
+    medicine:[{min:13.0,score:100},{min:12.5,score:98},{min:12.0,score:96},{min:11.5,score:94},{min:11.0,score:92},{min:10.5,score:90},{min:10.0,score:88},{min:9.5,score:86},{min:9.0,score:84},{min:8.5,score:82},{min:8.0,score:80},{min:7.5,score:75},{min:7.0,score:70},{min:6.5,score:65},{min:6.0,score:60},{min:0,score:55}],
+    jump:[{min:261,score:100},{min:251,score:98},{min:241,score:96},{min:231,score:94},{min:221,score:92},{min:211,score:90},{min:201,score:88},{min:191,score:86},{min:181,score:84},{min:171,score:82},{min:161,score:80},{min:151,score:75},{min:141,score:70},{min:131,score:65},{min:121,score:60},{min:0,score:55}],
+    run:[{max:7.80,score:100},{max:8.00,score:98},{max:8.20,score:96},{max:8.40,score:94},{max:8.60,score:92},{max:8.80,score:90},{max:9.00,score:88},{max:9.20,score:86},{max:9.40,score:84},{max:9.60,score:82},{max:9.80,score:80},{max:10.00,score:75},{max:10.20,score:70},{max:10.40,score:65},{max:10.60,score:60},{max:999,score:55}]
   }
 };
 
@@ -173,118 +131,128 @@ const EVENTS=[
   {key:'run',     label:'10m 왕복달리기', unit_label:'초',ci:'4'}
 ];
 
-/* ───────────── CSV ───────────── */
 const CSV_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_TAB)}`;
 
 function parseCSV(text){
-  const rows=[];
-  const re=/("(?:[^"]|"")*"|[^,\n\r]*)/g;
-  let row=[];let m;
+  const rows=[];const re=/("(?:[^"]|"")*"|[^,\n\r]*)/g;
+  let row=[],m;
   while((m=re.exec(text))!==null){
     let v=m[1];
     if(v.startsWith('"')&&v.endsWith('"'))v=v.slice(1,-1).replace(/""/g,'"');
     row.push(v.trim());
-    const next=text[re.lastIndex];
-    if(next==='\n'||next==='\r'||re.lastIndex>=text.length){rows.push(row);row=[];if(next==='\r'&&text[re.lastIndex+1]==='\n')re.lastIndex++;}
-    else if(next===',')re.lastIndex++;
+    const nx=text[re.lastIndex];
+    if(nx==='\n'||nx==='\r'||re.lastIndex>=text.length){
+      rows.push(row);row=[];
+      if(nx==='\r'&&text[re.lastIndex+1]==='\n')re.lastIndex++;
+    }else if(nx===',')re.lastIndex++;
   }
   return rows;
 }
 
-function parseVal(v){if(!v||v.trim()==='')return null;const n=parseFloat(v.replace(/,/g,''));return isNaN(n)?null:n;}
+function pv(v){if(!v||v.trim()==='')return null;const n=parseFloat(v.replace(/,/g,''));return isNaN(n)?null:n;}
+
+/* ── 성별 정규화: 여자→여, 남자→남 ── */
+function normalizeGender(v){
+  const s=(v||'').trim();
+  if(s==='여'||s==='여자')return '여';
+  return '남';
+}
+
+/* ── 공식테스트 판별: "공식" 문자열 포함 여부 ── */
+function isOfficial(type){return (type||'').includes('공식');}
 
 function parseStudent(name,rows){
   const records=[];
   for(let i=1;i<rows.length;i++){
     const r=rows[i];
-    if(!r||r.length<2)continue;
+    if(!r||r.length<8)continue;
     if((r[2]||'').trim()!==name)continue;
-    const gender=(r[3]||'').trim();
-    const gKey=gender==='여'?'여':'남';
+
+    const gKey=normalizeGender(r[3]);
     const tbl=SCORE_TABLE[gKey];
-    const strVal=parseVal(r[8]);
-    const medVal=parseVal(r[9]);
-    const jmpVal=parseVal(r[10]);
-    const runVal=parseVal(r[11]);
-    const acadVal=parseVal(r[7]);
-    const totalVal=parseVal(r[12]);
+
+    /* 컬럼 인덱스 (CSV 실측 기준)
+       0=구분 1=날짜 2=이름 3=성별 4=학교 5=대학명 6=학과명
+       7=내신환산 8=배근력 9=메디신볼 10=멀리뛰기 11=왕복달리기 12=총점 */
+    const acadVal = pv(r[7]);
+    const strVal  = pv(r[8]);
+    const medVal  = pv(r[9]);
+    const jmpVal  = pv(r[10]);
+    const runVal  = pv(r[11]);
+    const totalVal= pv(r[12]);
+
     records.push({
-      type:(r[0]||'').trim(),
-      date:(r[1]||'').trim(),
-      name:(r[2]||'').trim(),
-      gender:gKey,
-      school:(r[4]||'').trim(),
-      univ:(r[5]||'').trim(),
-      dept:(r[6]||'').trim(),
-      acad:acadVal,
-      strength:strVal, strScore:getScore(tbl.strength,strVal),
-      medicine:medVal, medScore:getScore(tbl.medicine,medVal),
-      jump:jmpVal,     jumpScore:getScore(tbl.jump,jmpVal),
-      run:runVal,      runScore:getScore(tbl.run,runVal),
-      total:totalVal
+      type    :(r[0]||'').trim(),
+      date    :(r[1]||'').trim(),
+      name    :(r[2]||'').trim(),
+      gender  :gKey,
+      school  :(r[4]||'').trim(),
+      univ    :(r[5]||'').trim(),
+      dept    :(r[6]||'').trim(),
+      acad    :acadVal,
+      strength:strVal,  strScore :getScore(tbl.strength,strVal),
+      medicine:medVal,  medScore :getScore(tbl.medicine,medVal),
+      jump    :jmpVal,  jumpScore:getScore(tbl.jump,jmpVal),
+      run     :runVal,  runScore :getScore(tbl.run,runVal),
+      total   :totalVal
     });
   }
   records.sort((a,b)=>{
-    const da=a.date.replace(/\./g,'');
-    const db=b.date.replace(/\./g,'');
+    const da=a.date.replace(/\D/g,'').padEnd(8,'0');
+    const db=b.date.replace(/\D/g,'').padEnd(8,'0');
     return da<db?-1:da>db?1:0;
   });
   return records;
 }
 
-/* ───────────── RENDER ───────────── */
+/* ── RENDER ── */
 let CHARTS={};
 
 function renderHeader(r,el){
-  const first=r[0]||{};
+  const f=r[0]||{};
   el.innerHTML=`
-  <div class="header">
-    <div class="header-inner">
-      <div class="header-logo-box">
-        <img src="${LOGO_SRC}" alt="로고" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-        <span class="header-logo-text" style="display:none">${first.univ||'대학교'}</span>
-      </div>
-      <div class="header-info-col">
-        <div class="header-univ">${first.univ||''} · ${first.dept||''}</div>
-        <div class="header-name">${first.name||''}</div>
-        <div class="header-school">${first.school||''}</div>
-        <div class="header-badge">${first.gender==='여'?'여자':'남자'}</div>
-      </div>
+  <div class="header"><div class="header-inner">
+    <div class="header-logo-box">
+      <img src="${LOGO_SRC}" alt="로고" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="header-logo-text" style="display:none">${f.univ||'대학교'}</span>
     </div>
-  </div>`;
+    <div class="header-info-col">
+      <div class="header-univ">${f.univ||''} · ${f.dept||''}</div>
+      <div class="header-name">${f.name||''}</div>
+      <div class="header-school">${f.school||''}</div>
+      <div class="header-badge">${f.gender==='여'?'여자':'남자'}</div>
+    </div>
+  </div></div>`;
 }
 
 function renderTotalCard(r,el){
-  const official=r.filter(x=>x.type==='공식테스트');
-  const last=official.length?official[official.length-1]:r[r.length-1];
+  const off=r.filter(x=>isOfficial(x.type));
+  const last=off.length?off[off.length-1]:r[r.length-1];
   if(!last){el.innerHTML='';return;}
   const acad=last.acad??0;
-  const events=[last.strScore,last.medScore,last.jumpScore,last.runScore];
-  const allHave=events.every(v=>v!==null);
+  const scores=[last.strScore,last.medScore,last.jumpScore,last.runScore];
+  const allHave=scores.every(v=>v!==null);
+  const calcSum=allHave?scores.reduce((a,b)=>a+b,0):null;
   let total=last.total;
-  if(total===null&&allHave){
-    const sum=events.reduce((a,b)=>a+b,0);
-    total=Math.round((acad+sum*1.75)*100)/100;
-  }
-  const scoreSum=allHave?events.reduce((a,b)=>a+b,0):null;
+  if(total===null&&allHave)total=Math.round((acad+calcSum*1.75)*100)/100;
   el.innerHTML=`
   <div class="total-card">
-    <div class="total-label">최종 총점 (내신환산 + 실기×1.75)</div>
+    <div class="total-label">최종 총점 (내신환산 + 종목합×1.75)</div>
     <div class="total-score">${total!==null?total.toFixed(2):'—'}</div>
-    <div class="total-sub">내신환산 ${acad.toFixed(2)} + 실기합 ${scoreSum!==null?scoreSum.toFixed(2):'—'} × 1.75</div>
+    <div class="total-sub">내신환산 ${acad>0?acad.toFixed(2):'미입력'} + 종목합 ${calcSum!==null?calcSum:'—'} × 1.75</div>
     <div class="total-breakdown">
-      <div class="tb-item"><div class="val">${last.strScore!==null?last.strScore:'—'}</div><div class="lbl">배근력 점수</div></div>
-      <div class="tb-item"><div class="val">${last.medScore!==null?last.medScore:'—'}</div><div class="lbl">메디신볼 점수</div></div>
-      <div class="tb-item"><div class="val">${last.jumpScore!==null?last.jumpScore:'—'}</div><div class="lbl">멀리뛰기 점수</div></div>
-      <div class="tb-item"><div class="val">${last.runScore!==null?last.runScore:'—'}</div><div class="lbl">달리기 점수</div></div>
-      <div class="tb-item"><div class="val">${acad.toFixed(2)}</div><div class="lbl">내신환산</div></div>
+      <div class="tb-item"><div class="val">${last.strScore??'—'}</div><div class="lbl">배근력 점수</div></div>
+      <div class="tb-item"><div class="val">${last.medScore??'—'}</div><div class="lbl">메디신볼 점수</div></div>
+      <div class="tb-item"><div class="val">${last.jumpScore??'—'}</div><div class="lbl">멀리뛰기 점수</div></div>
+      <div class="tb-item"><div class="val">${last.runScore??'—'}</div><div class="lbl">달리기 점수</div></div>
+      <div class="tb-item"><div class="val">${acad>0?acad.toFixed(2):'—'}</div><div class="lbl">내신환산</div></div>
       <div class="tb-item"><div class="val">${total!==null?total.toFixed(2):'—'}</div><div class="lbl">총점</div></div>
     </div>
   </div>`;
 }
 
 function renderOfficialBanner(r,el){
-  const off=r.filter(x=>x.type==='공식테스트');
+  const off=r.filter(x=>isOfficial(x.type));
   if(!off.length){el.innerHTML='';return;}
   const last=off[off.length-1];
   el.innerHTML=`
@@ -300,26 +268,24 @@ function renderOfficialBanner(r,el){
 }
 
 function renderAcadCard(r,el){
-  const off=r.filter(x=>x.type==='공식테스트');
+  const off=r.filter(x=>isOfficial(x.type));
   const last=off.length?off[off.length-1]:r[r.length-1];
   if(!last||last.acad===null){el.innerHTML='';return;}
-  const acad=last.acad;
   el.innerHTML=`
   <div class="acad-card">
     <div class="acad-title">📚 내신환산 점수</div>
     <div class="acad-grid">
-      <div class="acad-item"><div class="av">${acad.toFixed(2)}</div><div class="al">내신환산 점수</div></div>
-      <div class="acad-item"><div class="av">${((acad/300)*100).toFixed(1)}%</div><div class="al">내신 달성률 (300점 기준)</div></div>
+      <div class="acad-item"><div class="av">${last.acad.toFixed(2)}</div><div class="al">내신환산 점수</div></div>
+      <div class="acad-item"><div class="av">${((last.acad/300)*100).toFixed(1)}%</div><div class="al">내신 달성률 (300점 기준)</div></div>
     </div>
   </div>`;
 }
 
-function buildDetailTable(records,key,label,unit){
-  if(!records.length)return '<p style="text-align:center;padding:12px;color:#aaa">기록 없음</p>';
-  const scoreKey={strength:'strScore',medicine:'medScore',jump:'jumpScore',run:'runScore'}[key];
+function buildDetailTable(records,key,unit){
+  const sk={strength:'strScore',medicine:'medScore',jump:'jumpScore',run:'runScore'}[key];
   const rows=records.map(rec=>{
-    const v=rec[key];const s=rec[scoreKey];
-    const isOff=rec.type==='공식테스트';
+    const v=rec[key];const s=rec[sk];
+    const isOff=isOfficial(rec.type);
     return `<tr class="${isOff?'official-row':''}">
       <td>${rec.date}${isOff?'<span class="official-tag">공식</span>':''}</td>
       <td>${v!==null?v+' '+unit:'—'}</td>
@@ -334,15 +300,15 @@ function buildDetailTable(records,key,label,unit){
 
 function renderChartTab(records,el){
   Object.values(CHARTS).forEach(c=>c.destroy());CHARTS={};
-  const scoreKey={strength:'strScore',medicine:'medScore',jump:'jumpScore',run:'runScore'};
-  const unitMap={strength:'kg',medicine:'m',jump:'cm',run:'초'};
+  const sk={strength:'strScore',medicine:'medScore',jump:'jumpScore',run:'runScore'};
+  const um={strength:'kg',medicine:'m',jump:'cm',run:'초'};
   let html='<div class="chart-area">';
   EVENTS.forEach(ev=>{
-    const scores=records.map(x=>x[scoreKey[ev.key]]);
-    const best=Math.max(...scores.filter(s=>s!==null));
-    const latest=scores.filter(s=>s!==null).slice(-1)[0]??0;
-    const pct=Math.min(100,Math.round((latest/100)*100));
-    const detail=buildDetailTable(records,ev.key,ev.label,unitMap[ev.key]);
+    const scores=records.map(x=>x[sk[ev.key]]).filter(s=>s!==null);
+    const best=scores.length?Math.max(...scores):null;
+    const latest=scores.length?scores[scores.length-1]:55;
+    const pct=Math.max(0,Math.min(100,Math.round(((latest-55)/(100-55))*100)));
+    const detail=buildDetailTable(records,ev.key,um[ev.key]);
     html+=`
     <div class="event-card" id="card-${ev.key}" onclick="toggleCard('${ev.key}',event)">
       <div class="event-card-header">
@@ -351,7 +317,7 @@ function renderChartTab(records,el){
       </div>
       <div class="event-title">${ev.label}</div>
       <div class="event-meta">
-        <span class="event-best">최고 ${isFinite(best)?best:'—'} 점</span>
+        <span class="event-best">최고 ${best!==null?best:'—'} 점</span>
         <span class="event-achieve">달성률 ${pct}%</span>
       </div>
       <div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>
@@ -365,7 +331,7 @@ function renderChartTab(records,el){
   });
   html+='</div>';
   el.innerHTML=html;
-  EVENTS.forEach(ev=>{buildChart(ev.key,records,scoreKey[ev.key],'line');});
+  EVENTS.forEach(ev=>buildChart(ev.key,records,sk[ev.key],'line'));
 }
 
 function buildChart(key,records,sk,type){
@@ -374,21 +340,20 @@ function buildChart(key,records,sk,type){
   if(CHARTS[key])CHARTS[key].destroy();
   const labels=records.map(r=>r.date);
   const data=records.map(r=>r[sk]);
-  const isOff=records.map(r=>r.type==='공식테스트');
-  const ptColors=isOff.map(o=>o?'#1565c0':'#42a5f5');
-  const ptRadius=isOff.map(o=>o?7:4);
+  const isOff=records.map(r=>isOfficial(r.type));
   CHARTS[key]=new Chart(ctx,{
     type,
-    data:{
-      labels,
-      datasets:[{
-        label:'배점',data,
-        borderColor:'#1565c0',backgroundColor:type==='bar'?'rgba(21,101,192,0.7)':'rgba(21,101,192,0.15)',
-        fill:type==='line',tension:0.3,
-        pointBackgroundColor:ptColors,pointRadius:ptRadius,pointBorderWidth:2,pointBorderColor:'#fff'
-      }]
-    },
-    options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{min:50,max:100,ticks:{stepSize:10}}}}
+    data:{labels,datasets:[{
+      label:'배점',data,
+      borderColor:'#1565c0',
+      backgroundColor:type==='bar'?'rgba(21,101,192,0.7)':'rgba(21,101,192,0.15)',
+      fill:type==='line',tension:0.3,
+      pointBackgroundColor:isOff.map(o=>o?'#1565c0':'#42a5f5'),
+      pointRadius:isOff.map(o=>o?7:4),
+      pointBorderWidth:2,pointBorderColor:'#fff'
+    }]},
+    options:{responsive:true,plugins:{legend:{display:false}},
+      scales:{y:{min:50,max:100,ticks:{stepSize:10}}}}
   });
 }
 
@@ -398,25 +363,24 @@ function switchChartType(key,type,e){
     const b=document.getElementById(`btn-${t}-${key}`);
     if(b)b.classList.toggle('active',t===type);
   });
-  const scoreKey={strength:'strScore',medicine:'medScore',jump:'jumpScore',run:'runScore'};
-  buildChart(key,window._RECORDS||[],scoreKey[key],type);
+  const sk={strength:'strScore',medicine:'medScore',jump:'jumpScore',run:'runScore'};
+  buildChart(key,window._RECORDS||[],sk[key],type);
 }
 
 function toggleCard(key,e){
   if(e.target.closest('.chart-toggle'))return;
-  const card=document.getElementById('card-'+key);
-  if(card)card.classList.toggle('open');
+  document.getElementById('card-'+key)?.classList.toggle('open');
 }
 
 function renderTableTab(records,el){
-  const scoreKey={strength:'strScore',medicine:'medScore',jump:'jumpScore',run:'runScore'};
-  let rows=records.map(r=>{
+  const rows=records.map(r=>{
     const acad=r.acad??0;
-    const events=[r.strScore,r.medScore,r.jumpScore,r.runScore];
-    const allHave=events.every(v=>v!==null);
+    const scores=[r.strScore,r.medScore,r.jumpScore,r.runScore];
+    const allHave=scores.every(v=>v!==null);
+    const calcSum=allHave?scores.reduce((a,b)=>a+b,0):null;
     let tot=r.total;
-    if(tot===null&&allHave)tot=Math.round((acad+events.reduce((a,b)=>a+b,0)*1.75)*100)/100;
-    const isOff=r.type==='공식테스트';
+    if(tot===null&&allHave)tot=Math.round((acad+calcSum*1.75)*100)/100;
+    const isOff=isOfficial(r.type);
     return `<tr class="${isOff?'official-row':''}">
       <td><span class="tag ${isOff?'tag-official':'tag-monthly'}">${r.type}</span></td>
       <td>${r.date}</td>
@@ -424,7 +388,7 @@ function renderTableTab(records,el){
       <td>${r.medicine??'—'}</td><td>${r.medScore??'—'}</td>
       <td>${r.jump??'—'}</td><td>${r.jumpScore??'—'}</td>
       <td>${r.run??'—'}</td><td>${r.runScore??'—'}</td>
-      <td>${r.acad!==null?r.acad.toFixed(2):'—'}</td>
+      <td>${acad>0?acad.toFixed(2):'—'}</td>
       <td><strong>${tot!==null?tot.toFixed(2):'—'}</strong></td>
     </tr>`;
   }).join('');
@@ -441,18 +405,20 @@ function renderTableTab(records,el){
   </table></div>`;
 }
 
-/* ───────────── MAIN ───────────── */
 (async()=>{
   const app=document.getElementById('chartArea');
   const name=new URLSearchParams(location.search).get('name')||'';
   if(!name){app.innerHTML='<div class="error">❌ URL에 ?name=학생이름 을 추가해주세요.</div>';return;}
   try{
     const res=await fetch(CSV_URL);
-    if(!res.ok)throw new Error('fetch failed');
+    if(!res.ok)throw new Error('HTTP '+res.status);
     const text=await res.text();
     const rows=parseCSV(text);
     const records=parseStudent(name,rows);
-    if(!records.length){app.innerHTML=`<div class="error">❌ "${name}" 학생 데이터를 찾을 수 없습니다.</div>`;return;}
+    if(!records.length){
+      app.innerHTML=`<div class="error">❌ "${name}" 학생을 찾을 수 없습니다.<br><small>이름 철자와 시트 탭명을 확인해주세요.</small></div>`;
+      return;
+    }
     window._RECORDS=records;
 
     const header=document.createElement('div');
@@ -472,7 +438,7 @@ function renderTableTab(records,el){
     renderTableTab(records,tableContent);
 
     app.innerHTML='';
-    [header,totalCard,officialBanner,acadCard,tabWrap,chartContent,tableContent].forEach(el=>app.appendChild(el));
+    [header,totalCard,officialBanner,acadCard,tabWrap,chartContent,tableContent].forEach(e=>app.appendChild(e));
 
     window.showTab=function(tab){
       document.getElementById('content-chart').style.display=tab==='chart'?'':'none';
