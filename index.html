@@ -18,7 +18,7 @@ body{font-family:'Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var
 .total-card{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border-radius:14px;padding:20px;text-align:center;margin-bottom:12px;box-shadow:0 4px 14px rgba(26,82,118,.25);}
 .total-label{font-size:.82rem;opacity:.85;margin-bottom:6px;}
 .total-score{font-size:2.6rem;font-weight:800;letter-spacing:-1px;margin-bottom:6px;}
-.total-sub{font-size:.78rem;opacity:.8;line-height:1.6;}
+.total-sub{font-size:.78rem;opacity:.8;line-height:1.8;}
 .official-banner{background:#fff8e1;border-left:4px solid #f39c12;border-radius:0 10px 10px 0;padding:12px 16px;font-size:.83rem;color:#7d4e00;margin-bottom:12px;}
 .acad-card{background:var(--card);border-radius:12px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 6px rgba(0,0,0,.06);margin-bottom:14px;}
 .acad-label{font-size:.82rem;color:var(--sub);}
@@ -34,353 +34,478 @@ body{font-family:'Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var
 .chart-type-btns{display:flex;gap:6px;margin-bottom:10px;}
 .chart-type-btn{padding:4px 12px;border:1px solid var(--primary);border-radius:6px;background:transparent;color:var(--primary);font-size:.75rem;cursor:pointer;}
 .chart-type-btn.active{background:var(--primary);color:#fff;}
-canvas{width:100%!important;max-height:200px;}
+.chart-wrap{position:relative;height:200px;margin-bottom:10px;}
 .progress-wrap{margin-top:10px;}
 .progress-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:.78rem;}
 .progress-date{width:64px;color:var(--sub);white-space:nowrap;}
 .progress-bar-outer{flex:1;background:#e8f0fb;border-radius:10px;height:8px;overflow:hidden;}
-.progress-bar-inner{height:100%;background:var(--primary);border-radius:10px;transition:width .4s;}
+.progress-bar-inner{height:100%;background:var(--primary);border-radius:10px;}
 .progress-val{width:50px;text-align:right;font-weight:600;color:var(--primary);}
-.detail-toggle{font-size:.76rem;color:var(--primary);cursor:pointer;text-align:center;padding:6px;border-top:1px solid var(--border);}
+.detail-toggle{font-size:.76rem;color:var(--primary);cursor:pointer;text-align:center;padding:6px;border-top:1px solid var(--border);margin-top:8px;}
 .detail-table{width:100%;border-collapse:collapse;font-size:.76rem;margin-top:6px;}
 .detail-table th{background:#eaf1fb;padding:5px 8px;text-align:center;color:var(--sub);font-weight:600;}
 .detail-table td{padding:5px 8px;text-align:center;border-bottom:1px solid var(--border);}
 .detail-table tr.official td{background:#fff8e1;font-weight:600;}
+.record-table-wrap{overflow-x:auto;}
 .record-table{width:100%;border-collapse:collapse;font-size:.75rem;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);}
-.record-table th{background:var(--primary);color:#fff;padding:8px 6px;text-align:center;}
-.record-table td{padding:7px 6px;text-align:center;border-bottom:1px solid var(--border);}
+.record-table th{background:var(--primary);color:#fff;padding:8px 6px;text-align:center;white-space:nowrap;}
+.record-table td{padding:7px 6px;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap;}
 .record-table tr.official td{background:#fff8e1;font-weight:600;}
 </style>
 </head>
 <body>
 <div id="app"><div class="loading">⏳ 데이터 불러오는 중...</div></div>
 <script>
-// ── 가천대 환산 기준표 ──
-const STD = {
-  남:{
-    strength:[{min:0,score:0},{min:100,score:30},{min:110,score:40},{min:120,score:50},{min:130,score:60},{min:140,score:70},{min:150,score:80},{min:160,score:90},{min:170,score:100}],
-    medicine:[{min:0,score:0},{min:6,score:30},{min:7,score:50},{min:8,score:70},{min:9,score:85},{min:10,score:95},{min:11,score:100}],
-    jump:[{min:0,score:0},{min:170,score:30},{min:190,score:50},{min:210,score:70},{min:230,score:85},{min:250,score:95},{min:260,score:100}],
-    run:[{min:0,score:100},{min:7.5,score:95},{min:8.0,score:85},{min:8.5,score:70},{min:9.0,score:50},{min:9.5,score:30},{min:10.0,score:0}],
-  },
-  여:{
-    strength:[{min:0,score:0},{min:60,score:30},{min:70,score:40},{min:80,score:50},{min:90,score:60},{min:100,score:70},{min:110,score:80},{min:120,score:90},{min:130,score:100}],
-    medicine:[{min:0,score:0},{min:4,score:30},{min:5,score:50},{min:6,score:70},{min:7,score:85},{min:8,score:95},{min:9,score:100}],
-    jump:[{min:0,score:0},{min:140,score:30},{min:160,score:50},{min:180,score:70},{min:200,score:85},{min:220,score:95},{min:230,score:100}],
-    run:[{min:0,score:100},{min:8.5,score:95},{min:9.0,score:85},{min:9.5,score:70},{min:10.0,score:50},{min:10.5,score:30},{min:11.0,score:0}],
-  }
-};
-
-// run은 낮을수록 좋은 종목(내림차순)
-function getScore(table, val, isRun){
-  if(val===null)return null;
-  if(isRun){
-    // 낮을수록 좋음: 오름차순 정렬된 min을 역방향 탐색
-    let score=table[0].score;
-    for(let i=0;i<table.length;i++){
-      if(val<=table[i].min){score=table[i].score;break;}
-      score=table[i].score;
-    }
-    return score;
-  }else{
-    let score=table[0].score;
-    for(let i=0;i<table.length;i++){
-      if(val>=table[i].min)score=table[i].score;
-    }
-    return score;
-  }
-}
-
-const EVENTS=[
-  {key:'strength',label:'배근력',      unit:'kg', rawIdx:8,  isRun:false},
-  {key:'medicine',label:'메디신볼',    unit:'m',  rawIdx:9,  isRun:false},
-  {key:'jump',    label:'제자리멀리뛰기',unit:'cm', rawIdx:10, isRun:false},
-  {key:'run',     label:'10m왕복달리기',unit:'초', rawIdx:11, isRun:true },
-];
-
+/* ── 상수 ── */
 const SHEET_ID  = '1-uvH7koGGIEYXO8mL56xVUbUWXEbNPVuVP3htZ2wQMY';
 const SHEET_TAB = '가천대학교체육학전공';
 const LOGO_SRC  = 'images/gachon.png';
-const CSV_URL   = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_TAB)}`;
+const CSV_URL   = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID +
+                  '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(SHEET_TAB);
 
-function pv(v){
-  if(v===undefined||v===null)return null;
-  const s=String(v).replace(/,/g,'').trim();
-  if(s==='')return null;
-  const n=parseFloat(s);
-  return isNaN(n)?null:n;
+/* ── 가천대 환산 기준표 ── */
+const STD = {
+  여: {
+    strength: [{max:59,s:0},{max:69,s:10},{max:79,s:20},{max:89,s:30},{max:99,s:40},
+               {max:109,s:50},{max:119,s:60},{max:129,s:70},{max:139,s:80},{max:999,s:100}],
+    medicine: [{max:4.99,s:0},{max:5.99,s:20},{max:6.99,s:40},{max:7.99,s:60},
+               {max:8.99,s:80},{max:999,s:100}],
+    jump:     [{max:139,s:0},{max:159,s:20},{max:179,s:40},{max:199,s:60},
+               {max:219,s:80},{max:999,s:100}],
+    run:      [{max:8.49,s:100},{max:8.99,s:80},{max:9.49,s:60},{max:9.99,s:40},
+               {max:10.49,s:20},{max:999,s:0}]
+  },
+  남: {
+    strength: [{max:99,s:0},{max:109,s:10},{max:119,s:20},{max:129,s:30},{max:139,s:40},
+               {max:149,s:50},{max:159,s:60},{max:169,s:70},{max:179,s:80},{max:999,s:100}],
+    medicine: [{max:6.99,s:0},{max:7.99,s:20},{max:8.99,s:40},{max:9.99,s:60},
+               {max:10.99,s:80},{max:999,s:100}],
+    jump:     [{max:169,s:0},{max:189,s:20},{max:209,s:40},{max:229,s:60},
+               {max:249,s:80},{max:999,s:100}],
+    run:      [{max:7.49,s:100},{max:7.99,s:80},{max:8.49,s:60},{max:8.99,s:40},
+               {max:9.49,s:20},{max:999,s:0}]
+  }
+};
+
+function getScore(table, val) {
+  if (val === null || val === undefined) return null;
+  for (var i = 0; i < table.length; i++) {
+    if (val <= table[i].max) return table[i].s;
+  }
+  return table[table.length - 1].s;
 }
 
-function isOfficial(type){return (type||'').includes('공식');}
+/* ── 이벤트 정의 ── */
+var EVENTS = [
+  { key:'strength', label:'배근력',       unit:'kg' },
+  { key:'medicine', label:'메디신볼',     unit:'m'  },
+  { key:'jump',     label:'제자리멀리뛰기', unit:'cm' },
+  { key:'run',      label:'10m왕복달리기', unit:'초' }
+];
 
-function parseCSV(text){
-  const rows=[];
-  const re=/("(?:[^"]|"")*"|[^,\r\n]*)/g;
-  let row=[];
-  let match;
-  while((match=re.exec(text))!==null){
-    const val=match[1];
-    if(val===undefined)break;
-    const clean=val.startsWith('"')&&val.endsWith('"')?val.slice(1,-1).replace(/""/g,'"'):val;
-    row.push(clean);
-    const next=text[re.lastIndex];
-    if(next==='\n'||next==='\r'||re.lastIndex===text.length){
-      rows.push(row);row=[];
-      if(next==='\r'&&text[re.lastIndex+1]==='\n')re.lastIndex++;
+/* ── 유틸 ── */
+function pv(v) {
+  if (v === undefined || v === null) return null;
+  var s = String(v).replace(/,/g, '').trim();
+  if (s === '') return null;
+  var n = parseFloat(s);
+  return isNaN(n) ? null : n;
+}
+
+function isOfficial(type) {
+  return (type || '').indexOf('공식') !== -1;
+}
+
+/* ── CSV 파서 (안정화 버전) ── */
+function parseCSV(text) {
+  var rows = [];
+  var lines = text.split(/\r?\n/);
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (line.trim() === '') continue;
+    var row = [];
+    var inQuote = false;
+    var cell = '';
+    for (var j = 0; j < line.length; j++) {
+      var ch = line[j];
+      if (inQuote) {
+        if (ch === '"') {
+          if (j + 1 < line.length && line[j + 1] === '"') {
+            cell += '"';
+            j++;
+          } else {
+            inQuote = false;
+          }
+        } else {
+          cell += ch;
+        }
+      } else {
+        if (ch === '"') {
+          inQuote = true;
+        } else if (ch === ',') {
+          row.push(cell);
+          cell = '';
+        } else {
+          cell += ch;
+        }
+      }
     }
+    row.push(cell);
+    rows.push(row);
   }
-  if(row.length)rows.push(row);
   return rows;
 }
 
-function normalizeDate(d){
-  if(!d)return '00000000';
-  if(d.includes('.')){return d.replace(/\./g,'').padEnd(8,'0');}
-  const m=d.match(/^(\d{2})-(\d{2})$/);
-  if(m){const yr=parseInt(m[1])>=25?2000+parseInt(m[1]):2000+parseInt(m[1]);return `${yr}${m[2]}00`;}
-  return d.replace(/\D/g,'').padEnd(8,'0');
+/* ── 날짜 정규화 ── */
+function normalizeDate(d) {
+  if (!d) return '00000000';
+  if (d.indexOf('.') !== -1) return d.replace(/\./g, '').padEnd(8, '0');
+  var m = d.match(/^(\d{2})-(\d{2})$/);
+  if (m) {
+    var yy = parseInt(m[1]);
+    var yr = yy >= 25 ? 2000 + yy : 2000 + yy;
+    return String(yr) + m[2] + '00';
+  }
+  return d.replace(/\D/g, '').padEnd(8, '0');
 }
 
-function parseStudent(name, rows){
-  const records=[];
-  for(let i=1;i<rows.length;i++){
-    const r=rows[i];
-    if(!r||r.length<9)continue;
-    if((r[2]||'').trim()!==name)continue;
-    const gKey=(r[3]||'').trim().startsWith('여')?'여':'남';
-    const tbl=STD[gKey];
-    const strVal=pv(r[8]);
-    const medVal=pv(r[9]);
-    const jmpVal=pv(r[10]);
-    const runVal=pv(r[11]);
-    const totalVal=pv(r[12]);
-    const strScore=getScore(tbl.strength,strVal,false);
-    const medScore=getScore(tbl.medicine,medVal,false);
-    const jumpScore=getScore(tbl.jump,jmpVal,false);
-    const runScore=getScore(tbl.run,runVal,true);
-    const acad=pv(r[7]);
-    let total=totalVal;
-    if(total===null){
-      const scores=[strScore,medScore,jumpScore,runScore];
-      if(scores.every(v=>v!==null)){
-        const sum=scores.reduce((a,b)=>a+b,0);
-        total=Math.round(((acad??0)+sum*1.75)*100)/100;
+/* ── 학생 파싱 ── */
+function parseStudent(name, rows) {
+  var records = [];
+  for (var i = 1; i < rows.length; i++) {
+    var r = rows[i];
+    if (!r || r.length < 9) continue;
+    if ((r[2] || '').trim() !== name) continue;
+
+    var gRaw = (r[3] || '').trim();
+    var gKey = (gRaw === '여' || gRaw === '여자') ? '여' : '남';
+    var tbl  = STD[gKey];
+
+    var acadVal = pv(r[7]);
+    var strVal  = pv(r[8]);
+    var medVal  = pv(r[9]);
+    var jmpVal  = pv(r[10]);
+    var runVal  = pv(r[11]);
+    var totVal  = pv(r[12]);
+
+    var strScore  = getScore(tbl.strength, strVal);
+    var medScore  = getScore(tbl.medicine, medVal);
+    var jumpScore = getScore(tbl.jump,     jmpVal);
+    var runScore  = getScore(tbl.run,      runVal);
+
+    /* 총점 계산: 내신환산 + (종목환산합) × 1.75 */
+    var total = totVal;
+    if (total === null) {
+      var sc = [strScore, medScore, jumpScore, runScore];
+      if (sc[0] !== null && sc[1] !== null && sc[2] !== null && sc[3] !== null) {
+        var sum = sc[0] + sc[1] + sc[2] + sc[3];
+        total = Math.round(((acadVal || 0) + sum * 1.75) * 100) / 100;
       }
     }
+
     records.push({
-      type:(r[0]||'').trim(), date:(r[1]||'').trim(),
-      name:(r[2]||'').trim(), gender:gKey,
-      school:(r[4]||'').trim(), univ:(r[5]||'').trim(), dept:(r[6]||'').trim(),
-      acad, strength:strVal, strScore,
-      medicine:medVal, medScore,
-      jump:jmpVal, jumpScore,
-      run:runVal, runScore, total
+      type    : (r[0] || '').trim(),
+      date    : (r[1] || '').trim(),
+      name    : (r[2] || '').trim(),
+      gender  : gKey,
+      school  : (r[4] || '').trim(),
+      univ    : (r[5] || '').trim(),
+      dept    : (r[6] || '').trim(),
+      acad    : acadVal,
+      strength: strVal,  strScore  : strScore,
+      medicine: medVal,  medScore  : medScore,
+      jump    : jmpVal,  jumpScore : jumpScore,
+      run     : runVal,  runScore  : runScore,
+      total   : total
     });
   }
-  records.sort((a,b)=>normalizeDate(a.date).localeCompare(normalizeDate(b.date)));
+  records.sort(function(a, b) {
+    return normalizeDate(a.date) < normalizeDate(b.date) ? -1 : 1;
+  });
   return records;
 }
 
-function renderHeader(records,el){
-  const r=records[0];
-  if(!r){el.innerHTML='';return;}
-  el.innerHTML=`<div class="header">
-    <img src="${LOGO_SRC}" alt="로고" onerror="this.style.display='none'">
-    <div class="header-info">
-      <h1>${r.name}</h1>
-      <p>${r.school} · ${r.univ} ${r.dept}</p>
-      <p style="margin-top:2px;color:var(--primary);font-weight:600;">총 ${records.length}회 기록</p>
-    </div></div>`;
+/* ── 렌더 함수들 ── */
+function renderHeader(records, el) {
+  var r = records[0];
+  if (!r) { el.innerHTML = ''; return; }
+  el.innerHTML =
+    '<div class="header">' +
+    '<img src="' + LOGO_SRC + '" alt="로고" onerror="this.style.display=\'none\'">' +
+    '<div class="header-info">' +
+    '<h1>' + r.name + '</h1>' +
+    '<p>' + r.school + ' · ' + r.univ + ' ' + r.dept + '</p>' +
+    '<p style="margin-top:2px;color:var(--primary);font-weight:600;">총 ' + records.length + '회 기록</p>' +
+    '</div></div>';
 }
 
-function renderTotalCard(records,el){
-  const off=records.filter(x=>isOfficial(x.type));
-  const last=off.length?off[off.length-1]:records[records.length-1];
-  if(!last){el.innerHTML='';return;}
-  const acad=last.acad??0;
-  const scores=[last.strScore,last.medScore,last.jumpScore,last.runScore];
-  const allHave=scores.every(v=>v!==null);
-  const scoreSum=allHave?scores.reduce((a,b)=>a+b,0):null;
-  let total=last.total;
-  if(total===null&&allHave) total=Math.round((acad+scoreSum*1.75)*100)/100;
-  el.innerHTML=`<div class="total-card">
-    <div class="total-label">최종 총점 (내신환산 + 종목환산합×1.75)</div>
-    <div class="total-score">${total!==null?total.toFixed(2):'—'}</div>
-    <div class="total-sub">
-      내신환산 ${acad>0?acad.toFixed(2):'미입력'}
-      + (배근력 ${last.strScore??'—'} + 메디신볼 ${last.medScore??'—'}
-      + 멀리뛰기 ${last.jumpScore??'—'} + 달리기 ${last.runScore??'—'}) × 1.75
-    </div></div>`;
+function renderTotalCard(records, el) {
+  var off  = records.filter(function(x){ return isOfficial(x.type); });
+  var last = off.length ? off[off.length - 1] : records[records.length - 1];
+  if (!last) { el.innerHTML = ''; return; }
+
+  var acad   = last.acad !== null ? last.acad : 0;
+  var sc     = [last.strScore, last.medScore, last.jumpScore, last.runScore];
+  var allHave= sc.every(function(v){ return v !== null; });
+  var sum    = allHave ? sc.reduce(function(a,b){ return a+b; }, 0) : null;
+  var total  = last.total;
+  if (total === null && allHave) total = Math.round((acad + sum * 1.75) * 100) / 100;
+
+  el.innerHTML =
+    '<div class="total-card">' +
+    '<div class="total-label">최종 총점 (내신환산 + 종목환산합×1.75)</div>' +
+    '<div class="total-score">' + (total !== null ? total.toFixed(2) : '—') + '</div>' +
+    '<div class="total-sub">' +
+    '내신환산 ' + (acad > 0 ? acad.toFixed(2) : '미입력') + '<br>' +
+    '배근력 ' + (last.strScore  !== null ? last.strScore  : '—') +
+    ' + 메디신볼 ' + (last.medScore  !== null ? last.medScore  : '—') +
+    ' + 멀리뛰기 ' + (last.jumpScore !== null ? last.jumpScore : '—') +
+    ' + 달리기 '  + (last.runScore  !== null ? last.runScore  : '—') +
+    ' = ' + (sum !== null ? sum : '—') + ' × 1.75' +
+    '</div></div>';
 }
 
-function renderOfficialBanner(records,el){
-  const off=records.filter(x=>isOfficial(x.type));
-  if(!off.length){el.innerHTML='';return;}
-  const last=off[off.length-1];
-  el.innerHTML=`<div class="official-banner">🏆 <strong>${last.type}</strong> (${last.date}) &nbsp;|&nbsp; 총점 <strong>${last.total!==null?last.total.toFixed(2):'—'}</strong></div>`;
+function renderOfficialBanner(records, el) {
+  var off = records.filter(function(x){ return isOfficial(x.type); });
+  if (!off.length) { el.innerHTML = ''; return; }
+  var last = off[off.length - 1];
+  el.innerHTML =
+    '<div class="official-banner">🏆 <strong>' + last.type + '</strong> (' + last.date + ')' +
+    '&nbsp;|&nbsp;총점 <strong>' + (last.total !== null ? last.total.toFixed(2) : '—') + '</strong></div>';
 }
 
-function renderAcadCard(records,el){
-  const off=records.filter(x=>isOfficial(x.type));
-  const last=off.length?off[off.length-1]:records[records.length-1];
-  if(!last||last.acad===null){el.innerHTML='';return;}
-  el.innerHTML=`<div class="acad-card"><span class="acad-label">📚 내신환산 점수</span><span class="acad-value">${last.acad.toFixed(2)}</span></div>`;
+function renderAcadCard(records, el) {
+  var off  = records.filter(function(x){ return isOfficial(x.type); });
+  var last = off.length ? off[off.length - 1] : records[records.length - 1];
+  if (!last || last.acad === null) { el.innerHTML = ''; return; }
+  el.innerHTML =
+    '<div class="acad-card">' +
+    '<span class="acad-label">📚 내신환산 점수</span>' +
+    '<span class="acad-value">' + last.acad.toFixed(2) + '</span>' +
+    '</div>';
 }
 
-const _charts={};
-function renderChartTab(records,el){
-  el.innerHTML='';
-  EVENTS.forEach(ev=>{
-    const hasData=records.some(r=>r[ev.key]!==null);
-    if(!hasData)return;
-    const card=document.createElement('div');
-    card.className='event-card';
-    const latest=records.filter(r=>r[`${ev.key}Score`]!==null).slice(-1)[0];
-    const badge=latest?latest[`${ev.key}Score`]:'—';
-    card.innerHTML=`
-      <div class="event-header" onclick="toggleCard('${ev.key}',event)">
-        <span class="event-title">${ev.label} <small style="color:var(--sub);font-weight:400;">(${ev.unit})</small></span>
-        <span class="event-badge">${badge}점</span>
-      </div>
-      <div class="event-body" id="body-${ev.key}">
-        <div class="chart-type-btns">
-          <button class="chart-type-btn active" id="btn-line-${ev.key}" onclick="switchChartType('${ev.key}','line',event)">꺾은선</button>
-          <button class="chart-type-btn" id="btn-bar-${ev.key}" onclick="switchChartType('${ev.key}','bar',event)">막대</button>
-        </div>
-        <canvas id="chart-${ev.key}"></canvas>
-        <div class="progress-wrap" id="prog-${ev.key}"></div>
-        <div class="detail-toggle" onclick="toggleDetail('${ev.key}')">▼ 상세 기록 보기</div>
-        <div id="detail-${ev.key}" style="display:none;"></div>
-      </div>`;
+/* ── 차트 ── */
+var _charts = {};
+
+function renderChartTab(records, el) {
+  el.innerHTML = '';
+  EVENTS.forEach(function(ev) {
+    var hasData = records.some(function(r){ return r[ev.key] !== null; });
+    if (!hasData) return;
+
+    var latest = records.filter(function(r){ return r[ev.key + 'Score'] !== null; });
+    var badge  = latest.length ? latest[latest.length - 1][ev.key + 'Score'] + '점' : '—';
+
+    var card = document.createElement('div');
+    card.className = 'event-card';
+    card.innerHTML =
+      '<div class="event-header" onclick="toggleCard(\'' + ev.key + '\')">' +
+      '<span class="event-title">' + ev.label +
+      ' <small style="color:var(--sub);font-weight:400;">(' + ev.unit + ')</small></span>' +
+      '<span class="event-badge">' + badge + '</span>' +
+      '</div>' +
+      '<div class="event-body" id="body-' + ev.key + '">' +
+      '<div class="chart-type-btns">' +
+      '<button class="chart-type-btn active" id="btn-line-' + ev.key +
+        '" onclick="switchChart(\'' + ev.key + '\',\'line\',event)">꺾은선</button>' +
+      '<button class="chart-type-btn" id="btn-bar-' + ev.key +
+        '" onclick="switchChart(\'' + ev.key + '\',\'bar\',event)">막대</button>' +
+      '</div>' +
+      '<div class="chart-wrap"><canvas id="chart-' + ev.key + '"></canvas></div>' +
+      '<div class="progress-wrap" id="prog-' + ev.key + '"></div>' +
+      '<div class="detail-toggle" onclick="toggleDetail(\'' + ev.key + '\')">▼ 상세 기록 보기</div>' +
+      '<div id="detail-' + ev.key + '" style="display:none;"></div>' +
+      '</div>';
     el.appendChild(card);
-    buildChart(ev,records,'line');
-    buildProgress(ev,records);
-    buildDetailTable(ev,records);
+
+    buildChart(ev, records, 'line');
+    buildProgress(ev, records);
+    buildDetailTable(ev, records);
   });
 }
 
-function buildChart(ev,records,type){
-  const labels=records.map(r=>r.date);
-  const rawData=records.map(r=>r[ev.key]);
-  const ctx=document.getElementById(`chart-${ev.key}`);
-  if(!ctx)return;
-  if(_charts[ev.key]){_charts[ev.key].destroy();}
-  _charts[ev.key]=new Chart(ctx,{
-    type,
-    data:{labels,datasets:[{label:`${ev.label} (${ev.unit})`,data:rawData,borderColor:'#1a5276',backgroundColor:'rgba(26,82,118,.15)',tension:.3}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{y:{title:{display:true,text:ev.unit}}}}
+function buildChart(ev, records, type) {
+  var ctx = document.getElementById('chart-' + ev.key);
+  if (!ctx) return;
+  if (_charts[ev.key]) { _charts[ev.key].destroy(); delete _charts[ev.key]; }
+  var labels   = records.map(function(r){ return r.date; });
+  var rawData  = records.map(function(r){ return r[ev.key]; });
+  var scoreData= records.map(function(r){ return r[ev.key + 'Score']; });
+  _charts[ev.key] = new Chart(ctx, {
+    type: type,
+    data: {
+      labels: labels,
+      datasets: [
+        { label: ev.label + ' (' + ev.unit + ')',
+          data: rawData, borderColor: '#1a5276',
+          backgroundColor: 'rgba(26,82,118,.15)', tension: .3, yAxisID: 'y' },
+        { label: '환산점수',
+          data: scoreData, borderColor: '#e67e22',
+          backgroundColor: 'rgba(230,126,34,.15)',
+          tension: .3, borderDash: [4,3], yAxisID: 'y2' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        y:  { position: 'left',  title: { display: true, text: ev.unit } },
+        y2: { position: 'right', title: { display: true, text: '점' },
+              grid: { drawOnChartArea: false } }
+      },
+      plugins: { legend: { position: 'bottom' } }
+    }
   });
-  ctx.parentElement.style.height='200px';
 }
 
-function buildProgress(ev,records){
-  const el=document.getElementById(`prog-${ev.key}`);
-  if(!el)return;
-  const vals=records.map(r=>r[ev.key]).filter(v=>v!==null);
-  if(!vals.length){el.innerHTML='';return;}
-  const max=ev.isRun?Math.max(...vals):Math.max(...vals);
-  el.innerHTML=records.map(r=>{
-    if(r[ev.key]===null)return '';
-    const pct=ev.isRun?Math.round((1-(r[ev.key]-Math.min(...vals))/(max-Math.min(...vals)||1))*100):Math.round(r[ev.key]/max*100);
-    const isOff=isOfficial(r.type)?'font-weight:700;color:var(--primary)':'';
-    return `<div class="progress-row">
-      <span class="progress-date" style="${isOff}">${r.date}</span>
-      <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${pct}%"></div></div>
-      <span class="progress-val" style="${isOff}">${r[ev.key]}</span>
-    </div>`;
+function buildProgress(ev, records) {
+  var el = document.getElementById('prog-' + ev.key);
+  if (!el) return;
+  var vals = records.map(function(r){ return r[ev.key]; }).filter(function(v){ return v !== null; });
+  if (!vals.length) { el.innerHTML = ''; return; }
+  var max = Math.max.apply(null, vals);
+  var min = Math.min.apply(null, vals);
+  el.innerHTML = records.map(function(r) {
+    if (r[ev.key] === null) return '';
+    var pct;
+    if (ev.key === 'run') {
+      pct = max === min ? 100 : Math.round((1 - (r[ev.key] - min) / (max - min)) * 100);
+    } else {
+      pct = max === 0 ? 0 : Math.round(r[ev.key] / max * 100);
+    }
+    var bold = isOfficial(r.type) ? 'font-weight:700;color:var(--primary)' : '';
+    return '<div class="progress-row">' +
+      '<span class="progress-date" style="' + bold + '">' + r.date + '</span>' +
+      '<div class="progress-bar-outer"><div class="progress-bar-inner" style="width:' + pct + '%"></div></div>' +
+      '<span class="progress-val" style="' + bold + '">' + r[ev.key] + '</span>' +
+      '</div>';
   }).join('');
 }
 
-function buildDetailTable(ev,records){
-  const el=document.getElementById(`detail-${ev.key}`);
-  if(!el)return;
-  el.innerHTML=`<table class="detail-table">
-    <thead><tr><th>날짜</th><th>구분</th><th>${ev.label}</th><th>환산점수</th></tr></thead>
-    <tbody>
-      ${records.map(r=>`<tr class="${isOfficial(r.type)?'official':''}">
-        <td>${r.date}</td><td>${r.type}</td>
-        <td>${r[ev.key]!==null?r[ev.key]:'-'} ${ev.unit}</td>
-        <td>${r[`${ev.key}Score`]!==null?r[`${ev.key}Score`]:'-'}</td>
-      </tr>`).join('')}
-    </tbody></table>`;
+function buildDetailTable(ev, records) {
+  var el = document.getElementById('detail-' + ev.key);
+  if (!el) return;
+  el.innerHTML =
+    '<table class="detail-table"><thead><tr>' +
+    '<th>날짜</th><th>구분</th><th>' + ev.label + '</th><th>환산점수</th>' +
+    '</tr></thead><tbody>' +
+    records.map(function(r) {
+      var sc = r[ev.key + 'Score'];
+      return '<tr class="' + (isOfficial(r.type) ? 'official' : '') + '">' +
+        '<td>' + r.date + '</td>' +
+        '<td>' + r.type + '</td>' +
+        '<td>' + (r[ev.key] !== null ? r[ev.key] + ' ' + ev.unit : '-') + '</td>' +
+        '<td>' + (sc !== null ? sc : '-') + '</td>' +
+        '</tr>';
+    }).join('') +
+    '</tbody></table>';
 }
 
-function switchChartType(key,type,e){
+function switchChart(key, type, e) {
   e.stopPropagation();
-  const ev=EVENTS.find(x=>x.key===key);
-  if(!ev)return;
-  document.getElementById(`btn-line-${key}`).classList.toggle('active',type==='line');
-  document.getElementById(`btn-bar-${key}`).classList.toggle('active',type==='bar');
-  buildChart(ev,window._RECORDS,type);
+  var ev = EVENTS.filter(function(x){ return x.key === key; })[0];
+  if (!ev) return;
+  document.getElementById('btn-line-' + key).classList.toggle('active', type === 'line');
+  document.getElementById('btn-bar-'  + key).classList.toggle('active', type === 'bar');
+  buildChart(ev, window._RECORDS, type);
 }
 
-function toggleCard(key,e){
-  e.stopPropagation();
-  const body=document.getElementById(`body-${key}`);
-  if(body)body.style.display=body.style.display==='none'?'':'none';
+function toggleCard(key) {
+  var el = document.getElementById('body-' + key);
+  if (el) el.style.display = el.style.display === 'none' ? '' : 'none';
 }
 
-function toggleDetail(key){
-  const el=document.getElementById(`detail-${key}`);
-  if(el)el.style.display=el.style.display==='none'?'':'none';
+function toggleDetail(key) {
+  var el = document.getElementById('detail-' + key);
+  if (el) el.style.display = el.style.display === 'none' ? '' : 'none';
 }
 
-function renderTableTab(records,el){
-  el.innerHTML=`<table class="record-table">
-    <thead><tr>
-      <th>날짜</th><th>구분</th>
-      <th>배근력<br>(kg)</th><th>메디신볼<br>(m)</th>
-      <th>멀리뛰기<br>(cm)</th><th>달리기<br>(초)</th>
-      <th>내신</th><th>총점</th>
-    </tr></thead>
-    <tbody>
-      ${records.map(r=>`<tr class="${isOfficial(r.type)?'official':''}">
-        <td>${r.date}</td><td>${r.type}</td>
-        <td>${r.strength??'-'}</td><td>${r.medicine??'-'}</td>
-        <td>${r.jump??'-'}</td><td>${r.run??'-'}</td>
-        <td>${r.acad!==null?r.acad.toFixed(2):'-'}</td>
-        <td><strong>${r.total!==null?r.total.toFixed(2):'-'}</strong></td>
-      </tr>`).join('')}
-    </tbody></table>`;
+/* ── 기록표 탭 ── */
+function renderTableTab(records, el) {
+  el.innerHTML =
+    '<div class="record-table-wrap"><table class="record-table"><thead><tr>' +
+    '<th>날짜</th><th>구분</th>' +
+    '<th>배근력<br>(kg)</th><th>환산</th>' +
+    '<th>메디신볼<br>(m)</th><th>환산</th>' +
+    '<th>멀리뛰기<br>(cm)</th><th>환산</th>' +
+    '<th>달리기<br>(초)</th><th>환산</th>' +
+    '<th>내신</th><th>총점</th>' +
+    '</tr></thead><tbody>' +
+    records.map(function(r) {
+      return '<tr class="' + (isOfficial(r.type) ? 'official' : '') + '">' +
+        '<td>' + r.date + '</td>' +
+        '<td>' + r.type + '</td>' +
+        '<td>' + (r.strength !== null ? r.strength : '-') + '</td>' +
+        '<td>' + (r.strScore  !== null ? r.strScore  : '-') + '</td>' +
+        '<td>' + (r.medicine  !== null ? r.medicine  : '-') + '</td>' +
+        '<td>' + (r.medScore  !== null ? r.medScore  : '-') + '</td>' +
+        '<td>' + (r.jump      !== null ? r.jump      : '-') + '</td>' +
+        '<td>' + (r.jumpScore !== null ? r.jumpScore : '-') + '</td>' +
+        '<td>' + (r.run       !== null ? r.run       : '-') + '</td>' +
+        '<td>' + (r.runScore  !== null ? r.runScore  : '-') + '</td>' +
+        '<td>' + (r.acad      !== null ? r.acad.toFixed(2) : '-') + '</td>' +
+        '<td><strong>' + (r.total !== null ? r.total.toFixed(2) : '-') + '</strong></td>' +
+        '</tr>';
+    }).join('') +
+    '</tbody></table></div>';
 }
 
-function showTab(tab){
-  document.getElementById('content-chart').style.display=tab==='chart'?'':'none';
-  document.getElementById('content-table').style.display=tab==='table'?'':'none';
-  document.getElementById('tab-chart').classList.toggle('active',tab==='chart');
-  document.getElementById('tab-table').classList.toggle('active',tab==='table');
+/* ── 탭 전환 ── */
+function showTab(tab) {
+  document.getElementById('content-chart').style.display = tab === 'chart' ? '' : 'none';
+  document.getElementById('content-table').style.display = tab === 'table' ? '' : 'none';
+  document.getElementById('tab-chart').classList.toggle('active', tab === 'chart');
+  document.getElementById('tab-table').classList.toggle('active', tab === 'table');
 }
 
-(async()=>{
-  const app=document.getElementById('app');
-  const name=new URLSearchParams(location.search).get('name')||'';
-  if(!name){app.innerHTML='<div class="error">❌ URL에 ?name=학생이름 을 추가해주세요.</div>';return;}
-  try{
-    const res=await fetch(CSV_URL);
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    const text=await res.text();
-    const rows=parseCSV(text);
-    const records=parseStudent(name,rows);
-    if(!records.length){app.innerHTML=`<div class="error">❌ "${name}" 학생 데이터를 찾을 수 없습니다.</div>`;return;}
-    window._RECORDS=records;
-    const header=document.createElement('div');
-    const totalCard=document.createElement('div');
-    const officialBanner=document.createElement('div');
-    const acadCard=document.createElement('div');
-    const tabWrap=document.createElement('div');tabWrap.className='tabs';
-    tabWrap.innerHTML=`<button class="tab-btn active" id="tab-chart" onclick="showTab('chart')">📈 차트</button><button class="tab-btn" id="tab-table" onclick="showTab('table')">📋 기록표</button>`;
-    const chartContent=document.createElement('div');chartContent.id='content-chart';
-    const tableContent=document.createElement('div');tableContent.id='content-table';tableContent.style.display='none';
-    renderHeader(records,header);
-    renderTotalCard(records,totalCard);
-    renderOfficialBanner(records,officialBanner);
-    renderAcadCard(records,acadCard);
-    renderChartTab(records,chartContent);
-    renderTableTab(records,tableContent);
-    app.innerHTML='';
-    [header,totalCard,officialBanner,acadCard,tabWrap,chartContent,tableContent].forEach(e=>app.appendChild(e));
-  }catch(err){
-    app.innerHTML=`<div class="error">❌ 로드 실패: ${err.message}</div>`;
+/* ── 메인 ── */
+(async function() {
+  var app  = document.getElementById('app');
+  var name = new URLSearchParams(location.search).get('name') || '';
+  if (!name) {
+    app.innerHTML = '<div class="error">❌ URL에 ?name=학생이름 을 추가해주세요.</div>';
+    return;
+  }
+  try {
+    var res = await fetch(CSV_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    var text    = await res.text();
+    var rows    = parseCSV(text);
+    var records = parseStudent(name, rows);
+    if (!records.length) {
+      app.innerHTML = '<div class="error">❌ "' + name + '" 학생 데이터를 찾을 수 없습니다.</div>';
+      return;
+    }
+    window._RECORDS = records;
+
+    var header    = document.createElement('div');
+    var totalCard = document.createElement('div');
+    var offBanner = document.createElement('div');
+    var acadCard  = document.createElement('div');
+    var tabWrap   = document.createElement('div');
+    tabWrap.className = 'tabs';
+    tabWrap.innerHTML =
+      '<button class="tab-btn active" id="tab-chart" onclick="showTab(\'chart\')">📈 차트</button>' +
+      '<button class="tab-btn" id="tab-table" onclick="showTab(\'table\')">📋 기록표</button>';
+    var chartContent = document.createElement('div');
+    chartContent.id  = 'content-chart';
+    var tableContent = document.createElement('div');
+    tableContent.id  = 'content-table';
+    tableContent.style.display = 'none';
+
+    renderHeader(records, header);
+    renderTotalCard(records, totalCard);
+    renderOfficialBanner(records, offBanner);
+    renderAcadCard(records, acadCard);
+    renderChartTab(records, chartContent);
+    renderTableTab(records, tableContent);
+
+    app.innerHTML = '';
+    [header, totalCard, offBanner, acadCard, tabWrap, chartContent, tableContent]
+      .forEach(function(e){ app.appendChild(e); });
+
+  } catch(err) {
+    app.innerHTML = '<div class="error">❌ 로드 실패: ' + err.message + '</div>';
   }
 })();
 </script>
