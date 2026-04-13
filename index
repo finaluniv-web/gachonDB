@@ -11,63 +11,27 @@
   --blue:#1565C0;--lightblue:#1E88E5;--skyblue:#42A5F5;--dark:#0D47A1;
   --text:#1a1a1a;--subtext:#888;--bg:#f0f4f8;--white:#fff;
   --shadow:0 4px 24px rgba(0,0,0,0.08);
-  --c1:#1565C0;--c2:#1E88E5;--c3:#42A5F5;--c4:#0D47A1;
+  --c1:#0D47A1;--c2:#1565C0;--c3:#1E88E5;--c4:#42A5F5;
 }
 html{background:#dce8f5;}
-body{
-  font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
-  background:var(--bg);min-height:100vh;
-  max-width:480px;margin:0 auto;
-  box-shadow:0 0 60px rgba(0,0,0,0.10);
-}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);min-height:100vh;max-width:480px;margin:0 auto;box-shadow:0 0 60px rgba(0,0,0,0.10);}
 
 /* ── HEADER ── */
-.header{
-  background:linear-gradient(135deg,var(--dark) 0%,var(--blue) 50%,var(--lightblue) 100%);
-  padding:28px 24px 28px;
-  position:relative;overflow:hidden;
-}
-.header::before{
-  content:'';position:absolute;width:200px;height:200px;
-  background:rgba(255,255,255,0.05);border-radius:50%;top:-60px;right:-40px;pointer-events:none;
-}
-.header::after{
-  content:'';position:absolute;width:140px;height:140px;
-  background:rgba(255,255,255,0.05);border-radius:50%;bottom:-40px;left:-20px;pointer-events:none;
-}
-.header-inner{
-  display:flex;align-items:center;gap:20px;position:relative;z-index:1;
-}
-.header-logo-box{
-  flex-shrink:0;background:#fff;border-radius:18px;
-  padding:14px 18px;box-shadow:0 6px 24px rgba(0,0,0,0.20);
-  display:flex;align-items:center;justify-content:center;
-  width:100px;height:100px;
-}
+.header{background:linear-gradient(135deg,var(--dark) 0%,var(--blue) 50%,var(--lightblue) 100%);padding:28px 24px;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;width:200px;height:200px;background:rgba(255,255,255,0.05);border-radius:50%;top:-60px;right:-40px;pointer-events:none;}
+.header::after{content:'';position:absolute;width:140px;height:140px;background:rgba(255,255,255,0.05);border-radius:50%;bottom:-40px;left:-20px;pointer-events:none;}
+.header-inner{display:flex;align-items:center;gap:20px;position:relative;z-index:1;}
+.header-logo-box{flex-shrink:0;background:#fff;border-radius:18px;padding:14px 18px;box-shadow:0 6px 24px rgba(0,0,0,0.20);display:flex;align-items:center;justify-content:center;width:100px;height:100px;}
 .header-logo-box img{width:100%;height:100%;display:block;object-fit:contain;}
 .header-logo-text{font-size:13px;font-weight:900;color:var(--blue);letter-spacing:0.5px;white-space:nowrap;text-align:center;}
 .header-info-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;}
 .header-univ{color:rgba(255,255,255,0.80);font-size:12px;letter-spacing:0.3px;}
-.header-name{
-  color:#fff;font-size:32px;font-weight:900;
-  letter-spacing:-1px;line-height:1.1;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
+.header-name{color:#fff;font-size:32px;font-weight:900;letter-spacing:-1px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .header-school{color:rgba(255,255,255,0.80);font-size:13px;}
-.header-badge{
-  display:inline-block;background:rgba(255,255,255,0.20);
-  color:#fff;font-size:12px;font-weight:700;
-  padding:5px 16px;border-radius:50px;
-  border:1.5px solid rgba(255,255,255,0.40);
-  align-self:flex-start;margin-top:2px;
-}
+.header-badge{display:inline-block;background:rgba(255,255,255,0.20);color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:50px;border:1.5px solid rgba(255,255,255,0.40);align-self:flex-start;margin-top:2px;}
 
-/* ── TOTAL SCORE CARD ── */
-.total-card{
-  margin:18px 16px 0;background:var(--white);
-  border-radius:20px;padding:20px;
-  box-shadow:var(--shadow);border-top:4px solid var(--blue);
-}
+/* ── TOTAL CARD ── */
+.total-card{margin:18px 16px 0;background:var(--white);border-radius:20px;padding:20px;box-shadow:var(--shadow);border-top:4px solid var(--blue);}
 .total-label{font-size:11px;color:var(--subtext);font-weight:600;margin-bottom:10px;letter-spacing:0.3px;}
 .total-main{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;}
 .total-score-val{font-size:40px;font-weight:900;color:var(--blue);line-height:1;letter-spacing:-1px;}
@@ -77,12 +41,7 @@ body{
 .total-chip b{color:var(--blue);}
 
 /* ── OFFICIAL BANNER ── */
-.official-banner{
-  margin:16px 16px 0;
-  background:linear-gradient(135deg,#f0f7ff 0%,#fff 100%);
-  border-radius:20px;padding:20px;
-  box-shadow:var(--shadow);border-left:5px solid var(--blue);
-}
+.official-banner{margin:16px 16px 0;background:linear-gradient(135deg,#f0f7ff 0%,#fff 100%);border-radius:20px;padding:20px;box-shadow:var(--shadow);border-left:5px solid var(--blue);}
 .official-banner-title{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:3px;}
 .official-banner-date{font-size:12px;color:var(--subtext);margin-bottom:14px;}
 .official-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -93,15 +52,8 @@ body{
 .official-item-score{font-size:11px;color:var(--blue);font-weight:700;margin-top:4px;}
 
 /* ── TABS ── */
-.tab-wrap{
-  display:flex;gap:8px;padding:16px 16px 0;
-  background:var(--bg);position:sticky;top:0;z-index:10;
-}
-.tab-btn{
-  flex:1;padding:12px 0;border:none;border-radius:12px;
-  background:#d0dff0;color:#999;font-size:14px;font-weight:600;
-  cursor:pointer;transition:all .2s;
-}
+.tab-wrap{display:flex;gap:8px;padding:16px 16px 0;background:var(--bg);position:sticky;top:0;z-index:10;}
+.tab-btn{flex:1;padding:12px 0;border:none;border-radius:12px;background:#d0dff0;color:#999;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;}
 .tab-btn.active{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(21,101,192,0.30);}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
@@ -110,25 +62,19 @@ body{
 .container{padding:0 0 40px;}
 
 /* ── ACAD CARD ── */
-.acad-card{
-  margin:16px 16px 0;background:var(--white);
-  border-radius:20px;padding:16px 20px;
-  box-shadow:var(--shadow);
-  display:flex;align-items:center;justify-content:space-between;
-  border-left:4px solid var(--skyblue);
-}
+.acad-card{margin:16px 16px 0;background:var(--white);border-radius:20px;padding:16px 20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;border-left:4px solid var(--skyblue);}
 .acad-label{font-size:12px;color:var(--subtext);font-weight:600;margin-bottom:2px;}
 .acad-value{font-size:28px;font-weight:900;color:var(--dark);}
 .acad-unit{font-size:13px;color:var(--subtext);margin-left:3px;}
 
 /* ── EVENT CARD ── */
-.event-card{margin:16px 16px 0;background:var(--white);border-radius:20px;padding:20px;box-shadow:var(--shadow);}
-.event-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
-.event-logo-box{
-  width:54px;height:54px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;padding:8px;
-}
+.event-card{margin:16px 16px 0;background:var(--white);border-radius:20px;padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:box-shadow .2s;}
+.event-card:active{box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.event-card-header-wrap{position:relative;}
+.event-toggle-icon{position:absolute;right:0;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:#f0f4f8;display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform .3s;color:#aaa;}
+.event-card.open .event-toggle-icon{transform:translateY(-50%) rotate(180deg);}
+.event-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-right:36px;}
+.event-logo-box{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:8px;}
 .event-logo-box img{width:100%;height:100%;object-fit:contain;}
 .el1{background:linear-gradient(135deg,#e3f0ff,#bbdefb);}
 .el2{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);}
@@ -153,18 +99,27 @@ body{
 .pb4{background:linear-gradient(90deg,#42A5F5,#90CAF9);}
 .progress-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--subtext);margin-bottom:14px;}
 .chart-toggle{display:flex;gap:6px;margin-bottom:12px;}
-.chart-toggle-btn{
-  flex:1;padding:8px 0;border:1.5px solid #d0dff0;border-radius:10px;
-  background:#fff;color:#aaa;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;
-}
+.chart-toggle-btn{flex:1;padding:8px 0;border:1.5px solid #d0dff0;border-radius:10px;background:#fff;color:#aaa;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
 .chart-toggle-btn.active{border-color:var(--blue);color:var(--blue);background:#f0f7ff;}
 .chart-wrap{position:relative;height:190px;}
 
-/* ── TABLE ── */
+/* ── 종목별 슬라이드 기록표 ── */
+.event-detail-table{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
+.event-card.open .event-detail-table{max-height:800px;}
+.event-detail-inner{border-top:1.5px solid #e8f0f8;margin-top:16px;padding-top:14px;}
+.event-detail-title{font-size:12px;font-weight:700;color:var(--subtext);margin-bottom:10px;letter-spacing:0.3px;}
+.event-detail-wrap{overflow-x:auto;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.event-detail-wrap table{width:100%;border-collapse:collapse;background:#fff;font-size:12px;}
+.event-detail-wrap th{padding:9px 12px;text-align:center;font-weight:700;white-space:nowrap;font-size:11px;}
+.event-detail-wrap td{padding:9px 12px;text-align:center;border-bottom:1px solid #f0f4f8;color:var(--text);}
+.event-detail-wrap tr:last-child td{border-bottom:none;}
+.event-detail-wrap tr.official-row td{background:#f0f7ff;}
+
+/* ── TABLE TAB ── */
 .table-section{margin:16px 16px 0;}
 .table-section-title{font-size:13px;color:var(--subtext);font-weight:700;margin-bottom:10px;letter-spacing:0.3px;}
 .table-wrap{overflow-x:auto;border-radius:16px;box-shadow:var(--shadow);}
-table{width:100%;border-collapse:collapse;background:#fff;font-size:11px;min-width:520px;}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:11px;min-width:480px;}
 th{background:var(--blue);color:#fff;padding:10px 8px;text-align:center;font-weight:700;white-space:nowrap;}
 td{padding:9px 8px;text-align:center;border-bottom:1px solid #f0f4f8;color:var(--text);}
 tr:last-child td{border-bottom:none;}
@@ -178,11 +133,10 @@ tr.official-row td{background:#f0f7ff;}
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-inner">
     <div class="header-logo-box" id="logoBox">
-      <img src="images/gachon.png" alt="가천대학교" id="logoImg"
+      <img src="images/gachon.png" alt="가천대학교"
         onerror="document.getElementById('logoBox').innerHTML='<span class=\'header-logo-text\'>가천대학교</span>'">
     </div>
     <div class="header-info-col">
@@ -194,7 +148,6 @@ tr.official-row td{background:#f0f7ff;}
   </div>
 </div>
 
-<!-- TOTAL SCORE CARD -->
 <div class="total-card" id="totalCard" style="display:none;">
   <div class="total-label">📊 최근 기록 총점 · 내신환산 + 실기합계 × 1.75</div>
   <div class="total-main">
@@ -204,24 +157,18 @@ tr.official-row td{background:#f0f7ff;}
   <div class="total-breakdown" id="totalBreakdown"></div>
 </div>
 
-<!-- OFFICIAL BANNER -->
 <div id="officialBanner"></div>
 
-<!-- TABS -->
 <div class="tab-wrap">
   <button class="tab-btn active" onclick="switchTab('chart')">📊 차트</button>
   <button class="tab-btn" onclick="switchTab('table')">📋 기록표</button>
 </div>
 
-<!-- CONTENTS -->
 <div class="container">
   <div class="tab-content active" id="tab-chart">
     <div id="acadCard" style="display:none;" class="acad-card">
       <div><div class="acad-label">🎓 내신환산 점수</div></div>
-      <div>
-        <span class="acad-value" id="acadVal">—</span>
-        <span class="acad-unit">점</span>
-      </div>
+      <div><span class="acad-value" id="acadVal">—</span><span class="acad-unit">점</span></div>
     </div>
     <div id="chartArea"><div class="loading">⏳ 데이터 불러오는 중...</div></div>
   </div>
@@ -231,472 +178,311 @@ tr.official-row td{background:#f0f7ff;}
 </div>
 
 <script>
-/* ── 설정 ── */
 const SHEET_ID  = '1-uvH7koGGIEYXO8mL56xVUbUWXEbNPVuVP3htZ2wQMY';
 const SHEET_TAB = '가천대학교체육학전공';
 const LOGO_SRC  = 'images/gachon.png';
 
-/* ── 가천대 배점표 (남/여) ── */
-const SCORE_TABLE = {
-  남: {
-    strength: [
-      {score:100,min:221,  max:Infinity},
-      {score:95, min:216,  max:220.9},
-      {score:90, min:211,  max:215.9},
-      {score:85, min:206,  max:210.9},
-      {score:80, min:201,  max:205.9},
-      {score:75, min:196,  max:200.9},
-      {score:70, min:191,  max:195.9},
-      {score:65, min:186,  max:190.9},
-      {score:60, min:181,  max:185.9},
-      {score:55, min:176,  max:180.9},
-      {score:50, min:171,  max:175.9},
-      {score:45, min:166,  max:170.9},
-      {score:40, min:161,  max:165.9},
-      {score:35, min:156,  max:160.9},
-      {score:30, min:151,  max:155.9},
-      {score:25, min:146,  max:150.9},
-      {score:20, min:141,  max:145.9},
-      {score:15, min:136,  max:140.9},
-      {score:10, min:131,  max:135.9},
-      {score:5,  min:126,  max:130.9},
-      {score:0,  min:-Infinity, max:125.9}
+const SCORE_TABLE={
+  남:{
+    strength:[
+      {score:100,min:221,max:Infinity},{score:95,min:216,max:220.9},{score:90,min:211,max:215.9},
+      {score:85,min:206,max:210.9},{score:80,min:201,max:205.9},{score:75,min:196,max:200.9},
+      {score:70,min:191,max:195.9},{score:65,min:186,max:190.9},{score:60,min:181,max:185.9},
+      {score:55,min:176,max:180.9},{score:50,min:171,max:175.9},{score:45,min:166,max:170.9},
+      {score:40,min:161,max:165.9},{score:35,min:156,max:160.9},{score:30,min:151,max:155.9},
+      {score:25,min:146,max:150.9},{score:20,min:141,max:145.9},{score:15,min:136,max:140.9},
+      {score:10,min:131,max:135.9},{score:5,min:126,max:130.9},{score:0,min:-Infinity,max:125.9}
     ],
-    medicine: [
-      {score:100,min:12.5, max:Infinity},
-      {score:95, min:12.1, max:12.4},
-      {score:90, min:11.7, max:12.0},
-      {score:85, min:11.3, max:11.6},
-      {score:80, min:10.9, max:11.2},
-      {score:75, min:10.5, max:10.8},
-      {score:70, min:10.1, max:10.4},
-      {score:65, min:9.7,  max:10.0},
-      {score:60, min:9.3,  max:9.6},
-      {score:55, min:8.9,  max:9.2},
-      {score:50, min:8.5,  max:8.8},
-      {score:45, min:8.1,  max:8.4},
-      {score:40, min:7.7,  max:8.0},
-      {score:35, min:7.3,  max:7.6},
-      {score:30, min:6.9,  max:7.2},
-      {score:25, min:6.5,  max:6.8},
-      {score:20, min:6.1,  max:6.4},
-      {score:15, min:5.7,  max:6.0},
-      {score:10, min:5.3,  max:5.6},
-      {score:5,  min:4.9,  max:5.2},
-      {score:0,  min:-Infinity, max:4.8}
+    medicine:[
+      {score:100,min:12.5,max:Infinity},{score:95,min:12.1,max:12.4},{score:90,min:11.7,max:12.0},
+      {score:85,min:11.3,max:11.6},{score:80,min:10.9,max:11.2},{score:75,min:10.5,max:10.8},
+      {score:70,min:10.1,max:10.4},{score:65,min:9.7,max:10.0},{score:60,min:9.3,max:9.6},
+      {score:55,min:8.9,max:9.2},{score:50,min:8.5,max:8.8},{score:45,min:8.1,max:8.4},
+      {score:40,min:7.7,max:8.0},{score:35,min:7.3,max:7.6},{score:30,min:6.9,max:7.2},
+      {score:25,min:6.5,max:6.8},{score:20,min:6.1,max:6.4},{score:15,min:5.7,max:6.0},
+      {score:10,min:5.3,max:5.6},{score:5,min:4.9,max:5.2},{score:0,min:-Infinity,max:4.8}
     ],
-    jump: [
-      {score:100,min:300, max:Infinity},
-      {score:95, min:295, max:299},
-      {score:90, min:290, max:294},
-      {score:85, min:285, max:289},
-      {score:80, min:280, max:284},
-      {score:75, min:275, max:279},
-      {score:70, min:270, max:274},
-      {score:65, min:265, max:269},
-      {score:60, min:260, max:264},
-      {score:55, min:255, max:259},
-      {score:50, min:250, max:254},
-      {score:45, min:245, max:249},
-      {score:40, min:240, max:244},
-      {score:35, min:235, max:239},
-      {score:30, min:230, max:234},
-      {score:25, min:225, max:229},
-      {score:20, min:220, max:224},
-      {score:15, min:215, max:219},
-      {score:10, min:210, max:214},
-      {score:5,  min:205, max:209},
-      {score:0,  min:-Infinity, max:204}
+    jump:[
+      {score:100,min:300,max:Infinity},{score:95,min:295,max:299},{score:90,min:290,max:294},
+      {score:85,min:285,max:289},{score:80,min:280,max:284},{score:75,min:275,max:279},
+      {score:70,min:270,max:274},{score:65,min:265,max:269},{score:60,min:260,max:264},
+      {score:55,min:255,max:259},{score:50,min:250,max:254},{score:45,min:245,max:249},
+      {score:40,min:240,max:244},{score:35,min:235,max:239},{score:30,min:230,max:234},
+      {score:25,min:225,max:229},{score:20,min:220,max:224},{score:15,min:215,max:219},
+      {score:10,min:210,max:214},{score:5,min:205,max:209},{score:0,min:-Infinity,max:204}
     ],
-    run: [
-      {score:100,min:-Infinity, max:8.00},
-      {score:95, min:8.01, max:8.10},
-      {score:90, min:8.11, max:8.20},
-      {score:85, min:8.21, max:8.30},
-      {score:80, min:8.31, max:8.40},
-      {score:75, min:8.41, max:8.50},
-      {score:70, min:8.51, max:8.60},
-      {score:65, min:8.61, max:8.70},
-      {score:60, min:8.71, max:8.80},
-      {score:55, min:8.81, max:8.90},
-      {score:50, min:8.91, max:9.00},
-      {score:45, min:9.01, max:9.10},
-      {score:40, min:9.11, max:9.20},
-      {score:35, min:9.21, max:9.30},
-      {score:30, min:9.31, max:9.40},
-      {score:25, min:9.41, max:9.50},
-      {score:20, min:9.51, max:9.60},
-      {score:15, min:9.61, max:9.70},
-      {score:10, min:9.71, max:9.80},
-      {score:5,  min:9.81, max:9.90},
-      {score:0,  min:9.91, max:Infinity}
+    run:[
+      {score:100,min:-Infinity,max:8.00},{score:95,min:8.01,max:8.10},{score:90,min:8.11,max:8.20},
+      {score:85,min:8.21,max:8.30},{score:80,min:8.31,max:8.40},{score:75,min:8.41,max:8.50},
+      {score:70,min:8.51,max:8.60},{score:65,min:8.61,max:8.70},{score:60,min:8.71,max:8.80},
+      {score:55,min:8.81,max:8.90},{score:50,min:8.91,max:9.00},{score:45,min:9.01,max:9.10},
+      {score:40,min:9.11,max:9.20},{score:35,min:9.21,max:9.30},{score:30,min:9.31,max:9.40},
+      {score:25,min:9.41,max:9.50},{score:20,min:9.51,max:9.60},{score:15,min:9.61,max:9.70},
+      {score:10,min:9.71,max:9.80},{score:5,min:9.81,max:9.90},{score:0,min:9.91,max:Infinity}
     ]
   },
-  여: {
-    strength: [
-      {score:100,min:161,  max:Infinity},
-      {score:95, min:156,  max:160.9},
-      {score:90, min:151,  max:155.9},
-      {score:85, min:146,  max:150.9},
-      {score:80, min:141,  max:145.9},
-      {score:75, min:136,  max:140.9},
-      {score:70, min:131,  max:135.9},
-      {score:65, min:126,  max:130.9},
-      {score:60, min:121,  max:125.9},
-      {score:55, min:116,  max:120.9},
-      {score:50, min:111,  max:115.9},
-      {score:45, min:106,  max:110.9},
-      {score:40, min:101,  max:105.9},
-      {score:35, min:96,   max:100.9},
-      {score:30, min:91,   max:95.9},
-      {score:25, min:86,   max:90.9},
-      {score:20, min:81,   max:85.9},
-      {score:15, min:76,   max:80.9},
-      {score:10, min:71,   max:75.9},
-      {score:5,  min:66,   max:70.9},
-      {score:0,  min:-Infinity, max:65.9}
+  여:{
+    strength:[
+      {score:100,min:161,max:Infinity},{score:95,min:156,max:160.9},{score:90,min:151,max:155.9},
+      {score:85,min:146,max:150.9},{score:80,min:141,max:145.9},{score:75,min:136,max:140.9},
+      {score:70,min:131,max:135.9},{score:65,min:126,max:130.9},{score:60,min:121,max:125.9},
+      {score:55,min:116,max:120.9},{score:50,min:111,max:115.9},{score:45,min:106,max:110.9},
+      {score:40,min:101,max:105.9},{score:35,min:96,max:100.9},{score:30,min:91,max:95.9},
+      {score:25,min:86,max:90.9},{score:20,min:81,max:85.9},{score:15,min:76,max:80.9},
+      {score:10,min:71,max:75.9},{score:5,min:66,max:70.9},{score:0,min:-Infinity,max:65.9}
     ],
-    medicine: [
-      {score:100,min:9.8,  max:Infinity},
-      {score:95, min:9.4,  max:9.7},
-      {score:90, min:9.0,  max:9.3},
-      {score:85, min:8.6,  max:8.9},
-      {score:80, min:8.2,  max:8.5},
-      {score:75, min:7.8,  max:8.1},
-      {score:70, min:7.4,  max:7.7},
-      {score:65, min:7.0,  max:7.3},
-      {score:60, min:6.6,  max:6.9},
-      {score:55, min:6.2,  max:6.5},
-      {score:50, min:5.8,  max:6.1},
-      {score:45, min:5.4,  max:5.7},
-      {score:40, min:5.0,  max:5.3},
-      {score:35, min:4.6,  max:4.9},
-      {score:30, min:4.2,  max:4.5},
-      {score:25, min:3.8,  max:4.1},
-      {score:20, min:3.4,  max:3.7},
-      {score:15, min:3.0,  max:3.3},
-      {score:10, min:2.6,  max:2.9},
-      {score:5,  min:2.2,  max:2.5},
-      {score:0,  min:-Infinity, max:2.1}
+    medicine:[
+      {score:100,min:9.8,max:Infinity},{score:95,min:9.4,max:9.7},{score:90,min:9.0,max:9.3},
+      {score:85,min:8.6,max:8.9},{score:80,min:8.2,max:8.5},{score:75,min:7.8,max:8.1},
+      {score:70,min:7.4,max:7.7},{score:65,min:7.0,max:7.3},{score:60,min:6.6,max:6.9},
+      {score:55,min:6.2,max:6.5},{score:50,min:5.8,max:6.1},{score:45,min:5.4,max:5.7},
+      {score:40,min:5.0,max:5.3},{score:35,min:4.6,max:4.9},{score:30,min:4.2,max:4.5},
+      {score:25,min:3.8,max:4.1},{score:20,min:3.4,max:3.7},{score:15,min:3.0,max:3.3},
+      {score:10,min:2.6,max:2.9},{score:5,min:2.2,max:2.5},{score:0,min:-Infinity,max:2.1}
     ],
-    jump: [
-      {score:100,min:240, max:Infinity},
-      {score:95, min:235, max:239},
-      {score:90, min:230, max:234},
-      {score:85, min:225, max:229},
-      {score:80, min:220, max:224},
-      {score:75, min:215, max:219},
-      {score:70, min:210, max:214},
-      {score:65, min:205, max:209},
-      {score:60, min:200, max:204},
-      {score:55, min:195, max:199},
-      {score:50, min:190, max:194},
-      {score:45, min:185, max:189},
-      {score:40, min:180, max:184},
-      {score:35, min:175, max:179},
-      {score:30, min:170, max:174},
-      {score:25, min:165, max:169},
-      {score:20, min:160, max:164},
-      {score:15, min:155, max:159},
-      {score:10, min:150, max:154},
-      {score:5,  min:145, max:149},
-      {score:0,  min:-Infinity, max:144}
+    jump:[
+      {score:100,min:240,max:Infinity},{score:95,min:235,max:239},{score:90,min:230,max:234},
+      {score:85,min:225,max:229},{score:80,min:220,max:224},{score:75,min:215,max:219},
+      {score:70,min:210,max:214},{score:65,min:205,max:209},{score:60,min:200,max:204},
+      {score:55,min:195,max:199},{score:50,min:190,max:194},{score:45,min:185,max:189},
+      {score:40,min:180,max:184},{score:35,min:175,max:179},{score:30,min:170,max:174},
+      {score:25,min:165,max:169},{score:20,min:160,max:164},{score:15,min:155,max:159},
+      {score:10,min:150,max:154},{score:5,min:145,max:149},{score:0,min:-Infinity,max:144}
     ],
-    run: [
-      {score:100,min:-Infinity, max:9.20},
-      {score:95, min:9.21, max:9.30},
-      {score:90, min:9.31, max:9.40},
-      {score:85, min:9.41, max:9.50},
-      {score:80, min:9.51, max:9.60},
-      {score:75, min:9.61, max:9.70},
-      {score:70, min:9.71, max:9.80},
-      {score:65, min:9.81, max:9.90},
-      {score:60, min:9.91, max:10.00},
-      {score:55, min:10.01,max:10.10},
-      {score:50, min:10.11,max:10.20},
-      {score:45, min:10.21,max:10.30},
-      {score:40, min:10.31,max:10.40},
-      {score:35, min:10.41,max:10.50},
-      {score:30, min:10.51,max:10.60},
-      {score:25, min:10.61,max:10.70},
-      {score:20, min:10.71,max:10.80},
-      {score:15, min:10.81,max:10.90},
-      {score:10, min:10.91,max:11.00},
-      {score:5,  min:11.01,max:11.10},
-      {score:0,  min:11.11,max:Infinity}
+    run:[
+      {score:100,min:-Infinity,max:9.20},{score:95,min:9.21,max:9.30},{score:90,min:9.31,max:9.40},
+      {score:85,min:9.41,max:9.50},{score:80,min:9.51,max:9.60},{score:75,min:9.61,max:9.70},
+      {score:70,min:9.71,max:9.80},{score:65,min:9.81,max:9.90},{score:60,min:9.91,max:10.00},
+      {score:55,min:10.01,max:10.10},{score:50,min:10.11,max:10.20},{score:45,min:10.21,max:10.30},
+      {score:40,min:10.31,max:10.40},{score:35,min:10.41,max:10.50},{score:30,min:10.51,max:10.60},
+      {score:25,min:10.61,max:10.70},{score:20,min:10.71,max:10.80},{score:15,min:10.81,max:10.90},
+      {score:10,min:10.91,max:11.00},{score:5,min:11.01,max:11.10},{score:0,min:11.11,max:Infinity}
     ]
   }
 };
 
-/* 배점표에서 점수 계산 */
-function getScore(table, value) {
-  if (value === null || value === '미응시') return value;
-  for (const row of table) {
-    if (value >= row.min && value <= row.max) return row.score;
-  }
+function getScore(table,value){
+  if(value===null||value==='미응시')return value;
+  for(const row of table){if(value>=row.min&&value<=row.max)return row.score;}
   return 0;
 }
 
-const EVENTS = [
-  { key:'strength', label:'배근력',         unit:'kg', ci:'1', col:8,  scol:9  },
-  { key:'medicine', label:'메디신볼 던지기', unit:'m',  ci:'2', col:10, scol:11 },
-  { key:'jump',     label:'제자리 멀리뛰기', unit:'cm', ci:'3', col:12, scol:13 },
-  { key:'run',      label:'10m 왕복달리기',  unit:'초', ci:'4', col:14, scol:15 }
+const EVENTS=[
+  {key:'strength',label:'배근력',        unit:'kg',ci:'1'},
+  {key:'medicine',label:'메디신볼 던지기',unit:'m', ci:'2'},
+  {key:'jump',    label:'제자리 멀리뛰기',unit:'cm',ci:'3'},
+  {key:'run',     label:'10m 왕복달리기', unit:'초',ci:'4'}
 ];
 
-const LINE_C = [
-  { line:'#0D47A1', fill:'rgba(13,71,161,0.07)'   },
-  { line:'#1565C0', fill:'rgba(21,101,192,0.07)'  },
-  { line:'#1E88E5', fill:'rgba(30,136,229,0.07)'  },
-  { line:'#42A5F5', fill:'rgba(66,165,245,0.07)'  }
+const LINE_C=[
+  {line:'#0D47A1',fill:'rgba(13,71,161,0.07)'},
+  {line:'#1565C0',fill:'rgba(21,101,192,0.07)'},
+  {line:'#1E88E5',fill:'rgba(30,136,229,0.07)'},
+  {line:'#42A5F5',fill:'rgba(66,165,245,0.07)'}
 ];
-const BAR_C = [
+const BAR_C=[
   'rgba(13,71,161,0.80)','rgba(21,101,192,0.80)',
   'rgba(30,136,229,0.80)','rgba(66,165,245,0.80)'
 ];
 
-/* ── 전역 상태 ── */
-let chartInst  = {};
-let chartTypes = {};
-let studentData = null;
-const urlName = new URLSearchParams(window.location.search).get('name') || '';
+let chartInst={},chartTypes={},studentData=null;
+const urlName=new URLSearchParams(window.location.search).get('name')||'';
+const CSV_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_TAB)}`;
 
-/* ── CSV 로드 ── */
-const CSV_URL =
-  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_TAB)}`;
+fetch(CSV_URL).then(r=>r.text()).then(csv=>{
+  const rows=parseCSV(csv);
+  const data=parseStudent(rows,urlName);
+  if(!data){
+    document.getElementById('chartArea').innerHTML=`<div class="loading">❌ <b>${urlName||'(이름 없음)'}</b> 데이터를 찾을 수 없어요.</div>`;
+    return;
+  }
+  studentData=data;
+  renderHeader(data);
+  renderTotalCard(data);
+  renderOfficialBanner(data);
+  renderAcadCard(data);
+  renderChartTab(data);
+  renderTableTab(data);
+}).catch(()=>{
+  document.getElementById('chartArea').innerHTML='<div class="loading">❌ 데이터를 불러올 수 없어요.<br>구글 시트 공개 설정을 확인해주세요.</div>';
+});
 
-fetch(CSV_URL)
-  .then(r => r.text())
-  .then(csv => {
-    const rows = parseCSV(csv);
-    const data = parseStudent(rows, urlName);
-    if (!data) {
-      document.getElementById('chartArea').innerHTML =
-        `<div class="loading">❌ <b>${urlName || '(이름 없음)'}</b> 데이터를 찾을 수 없어요.<br>URL ?name= 값을 확인해주세요.</div>`;
-      return;
-    }
-    studentData = data;
-    renderHeader(data);
-    renderTotalCard(data);
-    renderOfficialBanner(data);
-    renderAcadCard(data);
-    renderChartTab(data);
-    renderTableTab(data);
-  })
-  .catch(() => {
-    document.getElementById('chartArea').innerHTML =
-      '<div class="loading">❌ 데이터를 불러올 수 없어요.<br>구글 시트 공개 설정을 확인해주세요.</div>';
-  });
-
-/* ── CSV 파싱 ── */
-function parseCSV(text) {
-  return text.trim().split('\n').map(line => {
-    const res = []; let cur = '', inQ = false;
-    for (const ch of line) {
-      if (ch === '"') { inQ = !inQ; }
-      else if (ch === ',' && !inQ) { res.push(cur.trim()); cur = ''; }
-      else { cur += ch; }
+function parseCSV(text){
+  return text.trim().split('\n').map(line=>{
+    const res=[];let cur='',inQ=false;
+    for(const ch of line){
+      if(ch==='"'){inQ=!inQ;}
+      else if(ch===','&&!inQ){res.push(cur.trim());cur='';}
+      else{cur+=ch;}
     }
     res.push(cur.trim());
     return res;
   });
 }
 
-function parseVal(v) {
-  if (v === undefined || v === null) return null;
-  const s = String(v).trim();
-  if (s === '') return null;
-  if (s === '미응시') return '미응시';
-  const n = parseFloat(s);
-  return isNaN(n) ? null : n;
+function parseVal(v){
+  if(v===undefined||v===null)return null;
+  const s=String(v).trim();
+  if(s==='')return null;
+  if(s==='미응시')return'미응시';
+  const n=parseFloat(s);
+  return isNaN(n)?null:n;
 }
 
-/* ── 학생 데이터 추출 ── */
-function parseStudent(rows, name) {
-  if (!name) return null;
-  const official = [], monthly = [];
-  let gender = '남', school = '', univ = '', dept = '', acadScore = null;
-
-  for (let i = 1; i < rows.length; i++) {
-    const r = rows[i];
-    if (!r[2] || r[2] !== name) continue;
-
-    gender = r[3] || '남';
-    school = r[4] || '';
-    univ   = r[5] || '';
-    dept   = r[6] || '';
-    const hv = r[7] ? parseFloat(r[7]) : NaN;
-    if (!isNaN(hv)) acadScore = hv;
-
-    const gKey = (gender === '여') ? '여' : '남';
-    const strVal = parseVal(r[8]);
-    const medVal = parseVal(r[10]);
-    const jmpVal = parseVal(r[12]);
-    const runVal = parseVal(r[14]);
-
-    const item = {
-      type:     r[0] || '',
-      date:     r[1] || '',
-      strength: strVal,
-      strScore: parseVal(r[9])  !== null ? parseVal(r[9])  : getScore(SCORE_TABLE[gKey].strength, strVal),
-      medicine: medVal,
-      medScore: parseVal(r[11]) !== null ? parseVal(r[11]) : getScore(SCORE_TABLE[gKey].medicine, medVal),
-      jump:     jmpVal,
-      jmpScore: parseVal(r[13]) !== null ? parseVal(r[13]) : getScore(SCORE_TABLE[gKey].jump,     jmpVal),
-      run:      runVal,
-      runScore: parseVal(r[15]) !== null ? parseVal(r[15]) : getScore(SCORE_TABLE[gKey].run,      runVal),
-      total:    parseVal(r[16])
+function parseStudent(rows,name){
+  if(!name)return null;
+  const official=[],monthly=[];
+  let gender='남',school='',univ='',dept='',acadScore=null;
+  for(let i=1;i<rows.length;i++){
+    const r=rows[i];
+    if(!r[2]||r[2]!==name)continue;
+    gender=r[3]||'남';school=r[4]||'';univ=r[5]||'';dept=r[6]||'';
+    const hv=r[7]?parseFloat(r[7]):NaN;
+    if(!isNaN(hv))acadScore=hv;
+    const gKey=(gender==='여'||gender==='여자')?'여':'남';
+    const strVal=parseVal(r[8]);
+    const medVal=parseVal(r[9]);
+    const jmpVal=parseVal(r[10]);
+    const runVal=parseVal(r[11]);
+    const item={
+      type:r[0]||'',date:r[1]||'',
+      strength:strVal,strScore:getScore(SCORE_TABLE[gKey].strength,strVal),
+      medicine:medVal,medScore:getScore(SCORE_TABLE[gKey].medicine,medVal),
+      jump:jmpVal,jmpScore:getScore(SCORE_TABLE[gKey].jump,jmpVal),
+      run:runVal,runScore:getScore(SCORE_TABLE[gKey].run,runVal),
+      total:parseVal(r[12])
     };
-
-    if (r[0] && r[0].includes('공식')) official.push(item);
+    if(r[0]&&r[0].includes('공식'))official.push(item);
     else monthly.push(item);
   }
-
-  if (!official.length && !monthly.length) return null;
-  monthly.sort((a, b) => String(a.date).localeCompare(String(b.date)));
-  return { name, gender, school, univ, dept, acadScore, official, monthly };
+  if(!official.length&&!monthly.length)return null;
+  monthly.sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  return{name,gender,school,univ,dept,acadScore,official,monthly};
 }
 
-/* ── 헤더 ── */
-function renderHeader(d) {
-  const univStr = [d.univ, d.dept].filter(Boolean).join(' · ') || 'Gachon University';
-  document.getElementById('hUniv').textContent   = univStr;
-  document.getElementById('hName').textContent   = d.name;
-  document.getElementById('hSchool').textContent = d.school || '';
-  document.getElementById('hBadge').textContent  = d.gender === '여' ? '👩 여성' : '🧑 남성';
+function renderHeader(d){
+  const univStr=[d.univ,d.dept].filter(Boolean).join(' · ')||'Gachon University';
+  document.getElementById('hUniv').textContent=univStr;
+  document.getElementById('hName').textContent=d.name;
+  document.getElementById('hSchool').textContent=d.school||'';
+  document.getElementById('hBadge').textContent=(d.gender==='여'||d.gender==='여자')?'👩 여성':'🧑 남성';
 }
 
-/* ── 총점 카드 ── */
-function renderTotalCard(d) {
-  const allSorted = [...d.official, ...d.monthly]
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  let recent = null;
-  for (const r of allSorted) {
-    if (r.total !== null && typeof r.total === 'number') { recent = r; break; }
+function renderTotalCard(d){
+  const allSorted=[...d.official,...d.monthly].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  let recent=null;
+  for(const r of allSorted){if(r.total!==null&&typeof r.total==='number'){recent=r;break;}}
+  const acad=d.acadScore!==null?d.acadScore:0;
+  if(!recent){
+    const src=allSorted.find(r=>r.strScore!==null&&r.medScore!==null&&r.jmpScore!==null&&r.runScore!==null);
+    if(src){
+      const scores=[src.strScore,src.medScore,src.jmpScore,src.runScore].filter(v=>typeof v==='number');
+      const practSum=scores.reduce((a,c)=>a+c,0);
+      const computed=+(acad+practSum*1.75).toFixed(2);
+      document.getElementById('totalCard').style.display='';
+      document.getElementById('totalScore').textContent=computed;
+      document.getElementById('totalScoreSub').innerHTML=`실기만점 700 + 내신 ${acad}<br>최대 ${(700+acad).toFixed(2)}점`;
+      document.getElementById('totalBreakdown').innerHTML=[
+        d.acadScore!==null?`<div class="total-chip">🎓 내신환산 <b>${d.acadScore}</b></div>`:'',
+        `<div class="total-chip">💪 실기합계(×1.75) <b>${(practSum*1.75).toFixed(2)}</b></div>`
+      ].join('');
+    }
+    return;
   }
-  if (!recent) return;
-
-  document.getElementById('totalCard').style.display = '';
-  document.getElementById('totalScore').textContent  = recent.total.toFixed(2);
-
-  const acadMax = d.acadScore !== null ? d.acadScore : 0;
-  document.getElementById('totalScoreSub').innerHTML =
-    `실기만점 700${d.acadScore !== null ? ` + 내신 ${d.acadScore}` : ''}<br>최대 ${(700 + acadMax).toFixed(2)}점`;
-
-  const chips = [];
-  if (d.acadScore !== null) chips.push(`🎓 내신환산 <b>${d.acadScore}</b>`);
-  const scores = [recent.strScore, recent.medScore, recent.jmpScore, recent.runScore]
-    .filter(v => typeof v === 'number');
-  if (scores.length) {
-    const sum = scores.reduce((a, c) => a + c, 0);
-    chips.push(`💪 실기합계(×1.75) <b>${(sum * 1.75).toFixed(2)}</b>`);
-  }
-  document.getElementById('totalBreakdown').innerHTML =
-    chips.map(c => `<div class="total-chip">${c}</div>`).join('');
+  document.getElementById('totalCard').style.display='';
+  document.getElementById('totalScore').textContent=recent.total.toFixed(2);
+  document.getElementById('totalScoreSub').innerHTML=`실기만점 700 + 내신 ${acad}<br>최대 ${(700+acad).toFixed(2)}점`;
+  const scores=[recent.strScore,recent.medScore,recent.jmpScore,recent.runScore].filter(v=>typeof v==='number');
+  const practSum=scores.reduce((a,c)=>a+c,0);
+  document.getElementById('totalBreakdown').innerHTML=[
+    d.acadScore!==null?`<div class="total-chip">🎓 내신환산 <b>${d.acadScore}</b></div>`:'',
+    `<div class="total-chip">💪 실기합계(×1.75) <b>${(practSum*1.75).toFixed(2)}</b></div>`
+  ].join('');
 }
 
-/* ── 공식 테스트 배너 ── */
-function renderOfficialBanner(d) {
-  const banner = document.getElementById('officialBanner');
-  if (!d.official.length) { banner.innerHTML = ''; return; }
-  const ov = d.official[d.official.length - 1];
-  banner.innerHTML = `
+function renderOfficialBanner(d){
+  const banner=document.getElementById('officialBanner');
+  if(!d.official.length){banner.innerHTML='';return;}
+  const ov=d.official[d.official.length-1];
+  banner.innerHTML=`
     <div class="official-banner">
       <div class="official-banner-title">🏅 공식 테스트 최근 기록</div>
       <div class="official-banner-date">측정일 : ${ov.date}</div>
       <div class="official-grid">
-        ${makeOB('배근력',         ov.strength, 'kg', ov.strScore)}
-        ${makeOB('메디신볼 던지기', ov.medicine, 'm',  ov.medScore)}
-        ${makeOB('제자리 멀리뛰기', ov.jump,     'cm', ov.jmpScore)}
-        ${makeOB('10m 왕복달리기', ov.run,      '초', ov.runScore)}
+        ${makeOB('배근력',ov.strength,'kg',ov.strScore)}
+        ${makeOB('메디신볼',ov.medicine,'m',ov.medScore)}
+        ${makeOB('멀리뛰기',ov.jump,'cm',ov.jmpScore)}
+        ${makeOB('왕복달리기',ov.run,'초',ov.runScore)}
       </div>
     </div>`;
 }
 
-function makeOB(label, val, unit, score) {
-  const vStr = val === null ? '-' : (val === '미응시' ? '미응시' : String(val));
-  const uStr = (val !== null && val !== '미응시') ? unit : '';
-  const sEl  = typeof score === 'number'
-    ? `<div class="official-item-score">배점 ${score}점</div>`
-    : (score === '미응시' ? '<div class="official-item-score">미응시 (0점)</div>' : '');
-  return `
-    <div class="official-item">
-      <div class="official-item-label">${label}</div>
-      <span class="official-item-value">${vStr}</span>
-      <span class="official-item-unit">${uStr}</span>
-      ${sEl}
-    </div>`;
+function makeOB(label,val,unit,score){
+  const vStr=val===null?'-':(val==='미응시'?'미응시':String(val));
+  const uStr=(val!==null&&val!=='미응시')?unit:'';
+  const sEl=typeof score==='number'
+    ?`<div class="official-item-score">배점 ${score}점</div>`
+    :(score==='미응시'?'<div class="official-item-score">미응시 (0점)</div>':'');
+  return`<div class="official-item">
+    <div class="official-item-label">${label}</div>
+    <span class="official-item-value">${vStr}</span>
+    <span class="official-item-unit">${uStr}</span>
+    ${sEl}
+  </div>`;
 }
 
-/* ── 내신환산 카드 ── */
-function renderAcadCard(d) {
-  const card = document.getElementById('acadCard');
-  if (d.acadScore !== null) {
-    card.style.display = '';
-    document.getElementById('acadVal').textContent = d.acadScore;
-  } else {
-    card.style.display = 'none';
-  }
+function renderAcadCard(d){
+  const card=document.getElementById('acadCard');
+  if(d.acadScore!==null){card.style.display='';document.getElementById('acadVal').textContent=d.acadScore;}
+  else{card.style.display='none';}
 }
 
-/* ── 탭 전환 ── */
-function switchTab(name) {
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['chart','table'][i] === name);
-  });
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{b.classList.toggle('active',['chart','table'][i]===name);});
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
 }
 
-/* ── 차트 탭 ── */
-function renderChartTab(d) {
-  const area   = document.getElementById('chartArea');
-  area.innerHTML = '';
-  const mData  = d.monthly;
-  const labels = mData.map(r => r.date);
-  const gKey   = (d.gender === '여') ? '여' : '남';
+function renderChartTab(d){
+  const area=document.getElementById('chartArea');
+  area.innerHTML='';
+  const mData=d.monthly;
+  const labels=mData.map(r=>r.date);
+  const gKey=(d.gender==='여'||d.gender==='여자')?'여':'남';
 
-  const scoreKeys = {
-    strength:'strScore', medicine:'medScore', jump:'jmpScore', run:'runScore'
-  };
+  EVENTS.forEach((ev,idx)=>{
+    const values=mData.map(r=>{const v=r[ev.key];return(v!==null&&v!=='미응시')?v:null;});
+    const valid=values.filter(v=>v!==null);
+    const isRun=ev.key==='run';
+    const best=valid.length?(isRun?Math.min(...valid):Math.max(...valid)):null;
+    const bestScore=best!==null?getScore(SCORE_TABLE[gKey][ev.key],best):0;
+    const pct=typeof bestScore==='number'?bestScore:0;
 
-  EVENTS.forEach((ev, idx) => {
-    const values = mData.map(r => {
-      const v = r[ev.key];
-      return (v !== null && v !== '미응시') ? v : null;
-    });
-    const scoreVals = mData.map(r => {
-      const s = r[scoreKeys[ev.key]];
-      return typeof s === 'number' ? s : null;
-    });
-    const valid = values.filter(v => v !== null);
-    const isRun = ev.key === 'run';
-    const best  = valid.length ? (isRun ? Math.min(...valid) : Math.max(...valid)) : null;
-    const bestScore = best !== null ? getScore(SCORE_TABLE[gKey][ev.key], best) : 0;
-    const pct = Math.round(bestScore);
-
-    const card = document.createElement('div');
-    card.className = 'event-card';
-    card.innerHTML = `
-      <div class="event-header">
-        <div class="event-logo-box el${ev.ci}">
-          <img src="${LOGO_SRC}" alt="가천대"
-            onerror="this.parentElement.innerHTML='<span style=font-size:22px>🏅</span>'">
+    const card=document.createElement('div');
+    card.className='event-card';
+    card.innerHTML=`
+      <div class="event-card-header-wrap">
+        <div class="event-header">
+          <div class="event-logo-box el${ev.ci}">
+            <img src="${LOGO_SRC}" alt="가천대"
+              onerror="this.parentElement.innerHTML='<span style=font-size:22px>🏅</span>'">
+          </div>
+          <div>
+            <div class="event-title">${ev.label}</div>
+            <div class="event-meta">단위: ${ev.unit} &nbsp;|&nbsp; 만점: 100점</div>
+          </div>
         </div>
-        <div>
-          <div class="event-title">${ev.label}</div>
-          <div class="event-meta">단위: ${ev.unit} &nbsp;|&nbsp; 만점: 100점</div>
-        </div>
+        <div class="event-toggle-icon">▼</div>
       </div>
       <div class="stat-row">
         <div>
           <div class="best-label">월별 최고기록</div>
-          <span class="best-record br${ev.ci}">${best !== null ? best : '-'}</span>
-          <span class="best-unit">${best !== null ? ev.unit : ''}</span>
+          <span class="best-record br${ev.ci}">${best!==null?best:'-'}</span>
+          <span class="best-unit">${best!==null?ev.unit:''}</span>
         </div>
         <div class="achievement">
           <div class="ach-label">배점</div>
-          <div class="ach-pct ap${ev.ci}">${bestScore}점</div>
+          <div class="ach-pct ap${ev.ci}">${bestScore!==null?bestScore:'-'}점</div>
         </div>
       </div>
       <div class="progress-wrap">
@@ -708,149 +494,160 @@ function renderChartTab(d) {
       </div>
       <div class="chart-toggle">
         <button class="chart-toggle-btn active" id="btn_line_${ev.key}"
-          onclick="switchChartType('${ev.key}','line')">꺾은선</button>
+          onclick="event.stopPropagation();switchChartType('${ev.key}','line')">꺾은선</button>
         <button class="chart-toggle-btn" id="btn_bar_${ev.key}"
-          onclick="switchChartType('${ev.key}','bar')">막대</button>
+          onclick="event.stopPropagation();switchChartType('${ev.key}','bar')">막대</button>
       </div>
       <div class="chart-wrap">
         <canvas id="chart_${ev.key}"></canvas>
+      </div>
+      <div class="event-detail-table" id="detail_${ev.key}">
+        <div class="event-detail-inner">
+          <div class="event-detail-title">📋 ${ev.label} 전체 기록</div>
+          <div class="event-detail-wrap">${buildDetailTable(ev.key,ev.unit,d,gKey)}</div>
+        </div>
       </div>`;
     area.appendChild(card);
 
-    setTimeout(() => {
-      const pb = document.getElementById('pb_' + ev.key);
-      if (pb) pb.style.width = pct + '%';
-    }, 150);
+    card.addEventListener('click',function(e){
+      if(e.target.closest('.chart-toggle'))return;
+      this.classList.toggle('open');
+    });
 
-    chartTypes[ev.key] = 'line';
-    buildChart(ev.key, 'line', labels, values, ev.unit, idx);
+    setTimeout(()=>{
+      const pb=document.getElementById('pb_'+ev.key);
+      if(pb)pb.style.width=pct+'%';
+    },150);
+
+    chartTypes[ev.key]='line';
+    buildChart(ev.key,'line',labels,values,ev.unit,idx);
   });
 }
 
-/* ── 차트 생성 ── */
-function buildChart(key, type, labels, values, unit, idx) {
-  const canvas = document.getElementById('chart_' + key);
-  if (!canvas) return;
-  if (chartInst[key]) { chartInst[key].destroy(); delete chartInst[key]; }
+function buildDetailTable(key,unit,d,gKey){
+  const scoreKeyMap={strength:'strScore',medicine:'medScore',jump:'jmpScore',run:'runScore'};
+  const allRows=[
+    ...d.official.map(r=>({...r,isOfficial:true})),
+    ...d.monthly.map(r=>({...r,isOfficial:false}))
+  ].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  const fmtV=v=>v===null?'-':(v==='미응시'?'미응시':String(v));
+  const fmtS=v=>{
+    if(v===null)return'-';
+    if(v==='미응시')return'0점';
+    return typeof v==='number'?v+'점':'-';
+  };
+  let html=`<table>
+    <thead><tr style="background:var(--blue);">
+      <th style="color:#fff">날짜</th>
+      <th style="color:#fff">기록(${unit})</th>
+      <th style="color:#fff">배점</th>
+    </tr></thead><tbody>`;
+  allRows.forEach(r=>{
+    const cls=r.isOfficial?'official-row':'';
+    const tag=r.isOfficial
+      ?`<span class="tag-official">공식</span>`
+      :`<span class="tag-monthly">연습</span>`;
+    html+=`<tr class="${cls}">
+      <td>${r.date} ${tag}</td>
+      <td><b>${fmtV(r[key])}</b></td>
+      <td>${fmtS(r[scoreKeyMap[key]])}</td>
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+  return html;
+}
 
-  const lc     = LINE_C[idx];
-  const isLine = (type === 'line');
-
-  chartInst[key] = new Chart(canvas, {
-    type: isLine ? 'line' : 'bar',
-    data: {
+function buildChart(key,type,labels,values,unit,idx){
+  const canvas=document.getElementById('chart_'+key);
+  if(!canvas)return;
+  if(chartInst[key]){chartInst[key].destroy();delete chartInst[key];}
+  const lc=LINE_C[idx];
+  const isLine=(type==='line');
+  chartInst[key]=new Chart(canvas,{
+    type:isLine?'line':'bar',
+    data:{
       labels,
-      datasets: [{
-        label: unit,
-        data: values,
-        borderColor:          isLine ? lc.line : undefined,
-        backgroundColor:      isLine ? lc.fill : BAR_C[idx],
-        borderWidth:          isLine ? 2.5 : 0,
-        pointRadius:          isLine ? 5   : 0,
-        pointBackgroundColor: isLine ? lc.line : undefined,
-        fill:                 isLine,
-        tension:              0.35,
-        spanGaps:             true,
-        borderRadius:         isLine ? 0 : 8
+      datasets:[{
+        label:unit,data:values,
+        borderColor:isLine?lc.line:undefined,
+        backgroundColor:isLine?lc.fill:BAR_C[idx],
+        borderWidth:isLine?2.5:0,
+        pointRadius:isLine?5:0,
+        pointBackgroundColor:isLine?lc.line:undefined,
+        fill:isLine,tension:0.35,spanGaps:true,borderRadius:isLine?0:8
       }]
     },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 600 },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ctx.parsed.y !== null ? `${ctx.parsed.y}${unit}` : '미응시'
-          }
-        }
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:{duration:600},
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>ctx.parsed.y!==null?`${ctx.parsed.y}${unit}`:'미응시'}}
       },
-      scales: {
-        x: { grid:{ display:false }, ticks:{ font:{ size:11 }, color:'#aaa' } },
-        y: { grid:{ color:'#eef2f8' }, ticks:{ font:{ size:11 }, color:'#aaa' } }
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:11},color:'#aaa'}},
+        y:{grid:{color:'#eef2f8'},ticks:{font:{size:11},color:'#aaa'}}
       }
     }
   });
 }
 
-/* ── 꺾은선 ↔ 막대 ── */
-function switchChartType(key, type) {
-  if (chartTypes[key] === type) return;
-  chartTypes[key] = type;
-  document.getElementById('btn_line_' + key).classList.toggle('active', type === 'line');
-  document.getElementById('btn_bar_'  + key).classList.toggle('active', type === 'bar');
-
-  const d      = studentData;
-  const ev     = EVENTS.find(e => e.key === key);
-  const idx    = EVENTS.indexOf(ev);
-  const mData  = d.monthly;
-  const labels = mData.map(r => r.date);
-  const values = mData.map(r => {
-    const v = r[key];
-    return (v !== null && v !== '미응시') ? v : null;
-  });
-  buildChart(key, type, labels, values, ev.unit, idx);
+function switchChartType(key,type){
+  if(chartTypes[key]===type)return;
+  chartTypes[key]=type;
+  document.getElementById('btn_line_'+key).classList.toggle('active',type==='line');
+  document.getElementById('btn_bar_'+key).classList.toggle('active',type==='bar');
+  const d=studentData;
+  const ev=EVENTS.find(e=>e.key===key);
+  const idx=EVENTS.indexOf(ev);
+  const labels=d.monthly.map(r=>r.date);
+  const values=d.monthly.map(r=>{const v=r[key];return(v!==null&&v!=='미응시')?v:null;});
+  buildChart(key,type,labels,values,ev.unit,idx);
 }
 
-/* ── 기록표 탭 ── */
-function renderTableTab(d) {
-  const area = document.getElementById('tableArea');
-  const allRows = [
-    ...d.official.map(r => ({ ...r, isOfficial:true  })),
-    ...d.monthly.map( r => ({ ...r, isOfficial:false }))
-  ].sort((a, b) => String(b.date).localeCompare(String(a.date)));
-
-  const fmtV = v => v === null ? '-' : (v === '미응시' ? '미응시' : String(v));
-  const fmtS = v => {
-    if (v === null) return '-';
-    if (v === '미응시') return '0';
-    return typeof v === 'number' ? String(v) : String(v);
-  };
-  const fmtT = v => {
-    if (v === null || v === '미응시') return '-';
-    return typeof v === 'number' ? v.toFixed(2) : String(v);
-  };
-
-  let html = `
-    <div class="table-section">
-      <div class="table-section-title">전체 기록표</div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>날짜</th>
-              <th>배근력<br><small style="opacity:.75;font-weight:400">kg</small></th>
-              <th>점수</th>
-              <th>메디신볼<br><small style="opacity:.75;font-weight:400">m</small></th>
-              <th>점수</th>
-              <th>멀리뛰기<br><small style="opacity:.75;font-weight:400">cm</small></th>
-              <th>점수</th>
-              <th>왕복달리기<br><small style="opacity:.75;font-weight:400">초</small></th>
-              <th>점수</th>
-              <th>총점</th>
-            </tr>
-          </thead>
-          <tbody>`;
-
-  allRows.forEach(r => {
-    const cls = r.isOfficial ? 'official-row' : '';
-    const tag = r.isOfficial
-      ? `<br><span class="tag-official">공식</span>`
-      : `<br><span class="tag-monthly">연습</span>`;
-    html += `
-      <tr class="${cls}">
-        <td>${r.date}${tag}</td>
-        <td>${fmtV(r.strength)}</td><td>${fmtS(r.strScore)}</td>
-        <td>${fmtV(r.medicine)}</td><td>${fmtS(r.medScore)}</td>
-        <td>${fmtV(r.jump)}</td>   <td>${fmtS(r.jmpScore)}</td>
-        <td>${fmtV(r.run)}</td>    <td>${fmtS(r.runScore)}</td>
-        <td><b>${fmtT(r.total)}</b></td>
-      </tr>`;
+function renderTableTab(d){
+  const area=document.getElementById('tableArea');
+  const allRows=[
+    ...d.official.map(r=>({...r,isOfficial:true})),
+    ...d.monthly.map(r=>({...r,isOfficial:false}))
+  ].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  const fmtV=v=>v===null?'-':(v==='미응시'?'미응시':String(v));
+  const fmtS=v=>{if(v===null)return'-';if(v==='미응시')return'0';return typeof v==='number'?String(v):'-';};
+  const fmtT=v=>{if(v===null||v==='미응시')return'-';return typeof v==='number'?v.toFixed(2):String(v);};
+  let html=`<div class="table-section">
+    <div class="table-section-title">전체 기록표</div>
+    <div class="table-wrap"><table>
+      <thead><tr>
+        <th>날짜</th>
+        <th>배근력<br><small style="opacity:.75;font-weight:400">kg</small></th><th>점수</th>
+        <th>메디신볼<br><small style="opacity:.75;font-weight:400">m</small></th><th>점수</th>
+        <th>멀리뛰기<br><small style="opacity:.75;font-weight:400">cm</small></th><th>점수</th>
+        <th>왕복달리기<br><small style="opacity:.75;font-weight:400">초</small></th><th>점수</th>
+        <th>총점</th>
+      </tr></thead><tbody>`;
+  allRows.forEach(r=>{
+    const cls=r.isOfficial?'official-row':'';
+    const tag=r.isOfficial
+      ?`<br><span class="tag-official">공식</span>`
+      :`<br><span class="tag-monthly">연습</span>`;
+    let totalDisplay=fmtT(r.total);
+    if(r.total===null){
+      const scores=[r.strScore,r.medScore,r.jmpScore,r.runScore].filter(v=>typeof v==='number');
+      if(scores.length===4){
+        const acad=d.acadScore!==null?d.acadScore:0;
+        totalDisplay=(acad+scores.reduce((a,c)=>a+c,0)*1.75).toFixed(2);
+      }
+    }
+    html+=`<tr class="${cls}">
+      <td>${r.date}${tag}</td>
+      <td>${fmtV(r.strength)}</td><td>${fmtS(r.strScore)}</td>
+      <td>${fmtV(r.medicine)}</td><td>${fmtS(r.medScore)}</td>
+      <td>${fmtV(r.jump)}</td><td>${fmtS(r.jmpScore)}</td>
+      <td>${fmtV(r.run)}</td><td>${fmtS(r.runScore)}</td>
+      <td><b>${totalDisplay}</b></td>
+    </tr>`;
   });
-
-  html += `</tbody></table></div></div>`;
-  area.innerHTML = html;
+  html+=`</tbody></table></div></div>`;
+  area.innerHTML=html;
 }
 </script>
 </body>
